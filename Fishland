@@ -1,0 +1,25 @@
+package FirstStepsInCodingMoreExercises;
+
+import java.util.Scanner;
+
+public class Fishland {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        double skumriaPrice = Double.parseDouble(scanner.nextLine());
+        double cacaPrice = Double.parseDouble(scanner.nextLine());
+        double palamudKg = Double.parseDouble(scanner.nextLine());
+        double safridKg = Double.parseDouble(scanner.nextLine());
+        int musselKg = Integer.parseInt(scanner.nextLine());
+
+        double palamudPrice = skumriaPrice + (skumriaPrice * 0.60);
+        double safridPrice = cacaPrice + (cacaPrice * 0.80);
+        double musselPrice = 7.50;
+
+        double toPay = palamudKg * palamudPrice + safridKg * safridPrice + musselKg * musselPrice;
+
+        System.out.printf("%.2f", toPay);
+
+    }
+
+}
