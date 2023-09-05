@@ -1,0 +1,17 @@
+package FirstStepsInCodingMoreExercises;
+
+import java.text.DecimalFormat;
+import java.util.Scanner;
+
+public class decimalFormatExercise {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        double a = Double.parseDouble(scanner.nextLine());
+        double b = Double.parseDouble(scanner.nextLine());
+
+        DecimalFormat decimalFormat = new DecimalFormat("#.#####");
+
+        System.out.println(decimalFormat.format(a * b));
+    }
+}
