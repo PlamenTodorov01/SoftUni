@@ -1,0 +1,49 @@
+package ConditionalStatementsAdvancedExercise;
+
+import java.util.Scanner;
+
+public class FishingBoat_04 {
+    public static void main(String[] args) {
+
+        //•	Бюджет на групата – цяло число в интервала [1…8000]
+        //•	Сезон –  текст : "Spring", "Summer", "Autumn", "Winter"
+        //•	Брой рибари – цяло число в интервала [4…18]
+
+        Scanner scanner = new Scanner(System.in);
+
+        int budget = Integer.parseInt(scanner.nextLine());
+        String season = scanner.nextLine();
+        int numberOfFishermen = Integer.parseInt(scanner.nextLine());
+
+        int boatRent = 0;
+        double discount = 0.0;
+
+        if (season.equals("Spring")) {
+            boatRent = 3000;
+        } else if (season.equals("Summer") || season.equals("Autumn")) {
+            boatRent = 4200;
+        } else if (season.equals("Winter")) {
+            boatRent = 2600;
+        }
+
+        if (numberOfFishermen <= 6) {
+            discount = boatRent * 0.10;
+        } else if (numberOfFishermen >= 7 && numberOfFishermen <= 11) {
+            discount = boatRent * 0.15;
+        } else if (numberOfFishermen >= 12) {
+            discount = boatRent * 0.25;
+        }
+
+        double finalPrice = boatRent - discount;
+
+        if ( numberOfFishermen % 2 == 0 && !(season.equals("Autumn"))) {
+              finalPrice = finalPrice - finalPrice * 0.05;
+        }
+
+        if (finalPrice <= budget) {
+            System.out.printf("Yes! You have %.2f leva left.", budget - finalPrice);
+        } else {
+            System.out.printf("Not enough money! You need %.2f leva.", finalPrice - budget);
+        }
+    }
+}
