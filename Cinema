@@ -1,0 +1,26 @@
+package ConditionalStatementsAdvancedExercise;
+
+import java.util.Scanner;
+
+public class Cinema_01 {
+    public static void main(String[] args) {
+
+        Scanner scanner = new Scanner(System.in);
+
+        String typeOfShow = scanner.nextLine();
+        int rows = Integer.parseInt(scanner.nextLine());
+        int columns = Integer.parseInt(scanner.nextLine());
+
+        int numberOfSeats = rows * columns;
+        double profit = 0.00;
+
+        if (typeOfShow.equals("Premiere")) {
+             profit = numberOfSeats * 12.0;
+        } else if (typeOfShow.equals("Normal")) {
+            profit = numberOfSeats * 7.50;
+        } else if (typeOfShow.equals("Discount")) {
+            profit = numberOfSeats * 5.00;
+        }
+        System.out.printf("%.2f" + " leva.", profit);
+    }
+}
