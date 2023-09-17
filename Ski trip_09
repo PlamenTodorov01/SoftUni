@@ -1,0 +1,49 @@
+package ConditionalStatementsAdvancedExercise;
+
+import java.util.Scanner;
+
+public class SkiTrip_09 {
+    public static void main(String[] args) {
+
+        Scanner scanner = new Scanner(System.in);
+
+        int daysToStay = Integer.parseInt(scanner.nextLine());
+        String typeOfRoom = scanner.nextLine();
+        String evaluation = scanner.nextLine();
+
+        double priceForHoliday = 0;
+        int nightsToStay = daysToStay - 1;
+
+
+        if (typeOfRoom.equals("room for one person")) {
+            priceForHoliday = nightsToStay * 18.0;
+
+        } else if (typeOfRoom.equals("apartment")) {
+            priceForHoliday = nightsToStay * 25.0;
+            if (daysToStay < 10) {
+            priceForHoliday = priceForHoliday - priceForHoliday * 0.30;
+            } else if (daysToStay <= 15) {
+                priceForHoliday = priceForHoliday - priceForHoliday * 0.35;
+            } else {
+                priceForHoliday = priceForHoliday - priceForHoliday * 0.50;
+            }
+        } else if (typeOfRoom.equals("president apartment")) {
+            priceForHoliday = nightsToStay * 35.0;
+            if (daysToStay < 10) {
+                priceForHoliday = priceForHoliday - priceForHoliday * 0.10;
+            } else if (daysToStay <= 15) {
+                priceForHoliday = priceForHoliday - priceForHoliday * 0.15;
+            } else {
+                priceForHoliday = priceForHoliday - priceForHoliday * 0.20;
+            }
+        }
+
+        if (evaluation.equals("positive")) {
+            priceForHoliday = priceForHoliday + priceForHoliday * 0.25;
+        } else if (evaluation.equals("negative")) {
+            priceForHoliday = priceForHoliday - priceForHoliday * 0.10;
+        }
+
+        System.out.printf("%.2f", priceForHoliday);
+    }
+}
