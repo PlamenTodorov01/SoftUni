@@ -1,0 +1,59 @@
+package ConditionalStatementsAdvancedExercise;
+
+import java.util.Scanner;
+
+public class OnTImeForExam_08 {
+    public static void main(String[] args) {
+
+        Scanner scanner = new Scanner(System.in);
+
+        int examHour = Integer.parseInt(scanner.nextLine());
+        int examMinutes = Integer.parseInt(scanner.nextLine());
+        int arrivalHour = Integer.parseInt(scanner.nextLine());
+        int arrivalMinutes = Integer.parseInt(scanner.nextLine());
+
+        int examTotalMinutes = examHour * 60 + examMinutes;
+        int arrivalTotalMinutes = arrivalHour * 60 + arrivalMinutes;
+
+       if (examTotalMinutes - arrivalTotalMinutes <= 30 && examTotalMinutes - arrivalTotalMinutes >= 0) {
+           System.out.println("On time");
+           if (examTotalMinutes - arrivalTotalMinutes >= 1) {
+               System.out.printf("%d minutes before the start", examTotalMinutes - arrivalTotalMinutes);
+           }
+
+       } else if (arrivalTotalMinutes > examTotalMinutes) {
+           System.out.println("Late");
+           if ( arrivalTotalMinutes - examTotalMinutes >= 1) {
+               if (arrivalTotalMinutes - examTotalMinutes < 60) {
+                   System.out.printf("%d minutes after the start", arrivalTotalMinutes - examTotalMinutes);
+               } else if (arrivalTotalMinutes - examTotalMinutes > 60) {
+                   if ((arrivalTotalMinutes - examTotalMinutes) % 60 < 9) {
+                       System.out.printf("%d:0%d hours after the start",(arrivalTotalMinutes - examTotalMinutes) / 60,(arrivalTotalMinutes - examTotalMinutes) % 60);
+                   } else {
+                       System.out.printf("%d:%d hours after the start",(arrivalTotalMinutes - examTotalMinutes) / 60,(arrivalTotalMinutes - examTotalMinutes) % 60);
+                   }
+               } else {
+                   System.out.printf("%d:00 hours after the start", (arrivalTotalMinutes - examTotalMinutes) / 60);
+               }
+           }
+
+       } else if (examTotalMinutes - arrivalTotalMinutes > 30) {
+           System.out.println("Early");
+           if (examTotalMinutes - arrivalTotalMinutes >= 1) {
+               if ((examTotalMinutes - arrivalTotalMinutes) > 60) {
+                   if ((examTotalMinutes - arrivalTotalMinutes) % 60 < 9) {
+                       System.out.printf("%d:0%d hours before the start", (examTotalMinutes - arrivalTotalMinutes) / 60, (examTotalMinutes - arrivalTotalMinutes) % 60);
+                   } else {
+                       System.out.printf("%d:%d hours before the start", (examTotalMinutes - arrivalTotalMinutes) / 60, (examTotalMinutes - arrivalTotalMinutes) % 60);
+                   }
+               } else if (examTotalMinutes - arrivalTotalMinutes < 60) {
+                   System.out.printf("%d minutes before the start", examTotalMinutes - arrivalTotalMinutes);
+               } else {
+                   System.out.printf("%d:00 hours before the start", (examTotalMinutes - arrivalTotalMinutes) / 60);
+               }
+           }
+
+       }
+    }
+}
+
