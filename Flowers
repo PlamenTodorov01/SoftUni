@@ -1,0 +1,61 @@
+package ConditionalStatementsAdvancedMoreExercises;
+
+import java.util.Scanner;
+
+public class Flowers_03 {
+    public static void main(String[] args) {
+
+        Scanner scanner = new Scanner(System.in);
+
+        int numberOfChrysanthemums = Integer.parseInt(scanner.nextLine());
+        int numberOfRoses = Integer.parseInt(scanner.nextLine());
+        int numberOfTulips = Integer.parseInt(scanner.nextLine());
+        String season = scanner.nextLine();
+        char holidayOrNot = scanner.next().charAt(0);
+
+        double priceTotal = 0;
+
+        double priceOfChrysanthemums = 0;
+        double priceOfRoses = 0;
+        double priceOfTulips = 0;
+
+        if (season.equals("Spring") || season.equals("Summer")) {
+
+            priceOfChrysanthemums =  2;
+            priceOfRoses =  4.10;
+            priceOfTulips = 2.50;
+
+            priceTotal = (priceOfChrysanthemums * numberOfChrysanthemums) + (priceOfRoses * numberOfRoses) + (priceOfTulips * numberOfTulips);
+
+            if (holidayOrNot == 'Y') {
+                priceTotal = priceTotal + priceTotal * 0.15;
+            }
+
+            if (season.equals("Spring") && numberOfTulips > 7) {
+                priceTotal = priceTotal - priceTotal * 0.05;
+            }
+
+        } else if (season.equals("Autumn") || season.equals("Winter")) {
+
+            priceOfChrysanthemums = 3.75;
+            priceOfRoses = 4.50;
+            priceOfTulips = 4.15;
+
+            priceTotal = (priceOfChrysanthemums * numberOfChrysanthemums) + (priceOfRoses * numberOfRoses) + (priceOfTulips * numberOfTulips);
+
+            if (holidayOrNot == 'Y') {
+                priceTotal = priceTotal + priceTotal * 0.15;
+            }
+
+            if (season.equals("Winter") && numberOfRoses >= 10) {
+                priceTotal = priceTotal - priceTotal * 0.10;
+            }
+        }
+        if ((numberOfChrysanthemums + numberOfRoses + numberOfTulips) > 20) {
+              priceTotal = priceTotal - priceTotal * 0.20;
+        }
+
+        priceTotal = priceTotal + 2;
+        System.out.printf("%.2f", priceTotal);
+    }
+}
