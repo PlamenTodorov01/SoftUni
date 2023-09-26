@@ -1,0 +1,70 @@
+package ConditionalStatementsAdvancedMoreExercises;
+
+import java.util.Scanner;
+
+public class SchoolCamp_07 {
+    public static void main(String[] args) {
+
+        Scanner scanner = new Scanner(System.in);
+
+        String season = scanner.nextLine();
+        String groupType = scanner.nextLine();
+        int numberOfStudents = Integer.parseInt(scanner.nextLine());
+        int numberOfDays = Integer.parseInt(scanner.nextLine());
+
+        double price = 0.00;
+        String sport = "";
+        int totalDays = numberOfDays * numberOfStudents;
+
+        switch (groupType) {
+            case "boys":
+                if (season.equals("Winter")) {
+                    sport = "Judo";
+                    price = totalDays * 9.60;
+                } else if (season.equals("Spring")) {
+                    sport = "Tennis";
+                    price = totalDays * 7.20;
+                } else if (season.equals("Summer")) {
+                    sport = "Football";
+                    price = totalDays * 15;
+                }
+                break;
+            case "girls":
+                if (season.equals("Winter")) {
+                    sport = "Gymnastics";
+                    price = totalDays * 9.60;
+                } else if (season.equals("Spring")) {
+                    sport = "Athletics";
+                    price = totalDays * 7.20;
+                } else if (season.equals("Summer")) {
+                    sport = "Volleyball";
+                    price = totalDays * 15;
+                }
+                break;
+            case "mixed":
+                if (season.equals("Winter")) {
+                    sport = "Ski";
+                    price = totalDays * 10;
+                } else if (season.equals("Spring")) {
+                    sport = "Cycling";
+                    price = totalDays * 9.50;
+                } else if (season.equals("Summer")) {
+                    sport = "Swimming";
+                    price = totalDays * 20;
+                }
+                break;
+        }
+         if (numberOfStudents >= 10 && numberOfStudents < 20) {
+             price = price - price * 0.05;
+         } else if (numberOfStudents >= 20 && numberOfStudents < 50) {
+             price = price - price * 0.15;
+         } else if (numberOfStudents >= 50) {
+             price = price - price * 0.50;
+         }
+        System.out.printf("%s %.2f lv.", sport, price);
+
+
+
+
+    }
+}
