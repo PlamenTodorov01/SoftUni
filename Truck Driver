@@ -1,0 +1,48 @@
+package ConditionalStatementsAdvancedMoreExercises;
+
+import java.util.Scanner;
+
+public class TruckDriver_06 {
+    public static void main(String[] args) {
+
+        Scanner scanner = new Scanner (System.in);
+
+        String season = scanner.nextLine();
+        double distanceInKm = Double.parseDouble(scanner.nextLine());
+
+        double salary = 0.00;
+
+        if (distanceInKm <= 5000) {
+            switch (season) {
+                case "Spring":
+                case "Autumn":
+                    salary = distanceInKm * 0.75;
+                    break;
+                case "Summer":
+                    salary = distanceInKm * 0.90;
+                    break;
+                case "Winter":
+                    salary = distanceInKm * 1.05;
+                    break;
+        }
+        } else if (distanceInKm <= 10_000) {
+            switch (season) {
+                case "Spring":
+                case "Autumn":
+                    salary = distanceInKm * 0.95;
+                    break;
+                case "Summer":
+                    salary = distanceInKm * 1.10;
+                    break;
+                case "Winter":
+                    salary = distanceInKm * 1.25;
+                    break;
+            }
+        } else {
+            salary = distanceInKm * 1.45;
+        }
+
+        salary = salary * 3.60;
+        System.out.printf("%.2f", salary);
+    }
+}
