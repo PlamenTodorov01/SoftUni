@@ -1,0 +1,47 @@
+package ArraysLab;
+
+import java.util.Scanner;
+
+public class EqualArrays_06 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        String firstLine = scanner.nextLine();
+        String [] firstStringArray = firstLine.split(" ");
+        int [] firstNumbersArray = new int[firstStringArray.length];
+
+        for (int i = 0; i < firstNumbersArray.length; i++) {
+            firstNumbersArray[i] = Integer.parseInt(firstStringArray[i]);
+        }
+
+        String secondLine = scanner.nextLine();
+        String [] secondStringArray = secondLine.split(" ");
+        int [] secondNumbersArray = new int[secondStringArray.length];
+
+        for (int i = 0; i < secondNumbersArray.length; i++) {
+            secondNumbersArray[i] = Integer.parseInt(secondStringArray[i]);
+        }
+
+        int differentAtIndex = -1;
+        if (firstNumbersArray.length == secondNumbersArray.length) {
+            for (int i = 0; i < firstNumbersArray.length; i++) {
+                if (firstNumbersArray[i] != secondNumbersArray[i]) {
+
+                    differentAtIndex = i;
+                    break;
+                }
+            }
+        }
+
+
+        if (differentAtIndex == -1) {
+            int sum = 0;
+            for (int number : firstNumbersArray) {
+                sum += number;
+            }
+            System.out.println("Arrays are identical. Sum: " + sum);
+        } else {
+            System.out.printf("Arrays are not identical. Found difference at %d index.", differentAtIndex);
+        }
+    }
+}
