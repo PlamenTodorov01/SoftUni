@@ -1,0 +1,27 @@
+package ArraysLab;
+
+import java.util.Scanner;
+
+public class EvenAndOddSubtraction_05 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        String input = scanner.nextLine();
+        String [] numbersAsString = input.split(" ");
+        int [] numbersArray = new int[numbersAsString.length];
+
+        for (int i = 0; i < numbersAsString.length; i++) {
+            numbersArray[i] = Integer.parseInt(numbersAsString[i]);
+        }
+        int oddSum = 0;
+        int evenSum = 0;
+        for (int number: numbersArray) {
+            if (number % 2 == 0) {
+                evenSum += number;
+            } else {
+                oddSum += number;
+            }
+        }
+        System.out.println(evenSum - oddSum);
+    }
+}
