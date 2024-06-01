@@ -1,0 +1,28 @@
+package ArraysExercise;
+
+import java.util.Scanner;
+
+public class ArrayRotation_04 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        String input = scanner.nextLine();
+        int numberOfRotations = Integer.parseInt(scanner.nextLine());
+
+        String[] numbersTextArray = input.split(" ");
+
+        for (int j = 0; j < numberOfRotations; j++) {
+                String firstElement = "";
+            for (int i = 0; i < numbersTextArray.length - 1; i++) {
+                if (i == 0) {
+                    firstElement = numbersTextArray[0];
+                }
+                numbersTextArray[i] = numbersTextArray[i + 1];
+            }
+            numbersTextArray[numbersTextArray.length - 1] = firstElement;
+        }
+            for (String s : numbersTextArray) {
+                System.out.print(s + " ");
+            }
+    }
+}
