@@ -1,0 +1,37 @@
+package ArraysExercise;
+
+import java.util.Scanner;
+
+public class ZigZagArrays_03 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        int n = Integer.parseInt(scanner.nextLine());
+
+        String [] firstArray = new String[n];
+        String [] secondArray = new String[n];
+
+        for (int i = 0; i < n; i++) {
+            String input = scanner.nextLine();
+            String [] numbersTextArray = input.split(" ");
+
+            if (i % 2 == 0) {
+
+                firstArray[i] = numbersTextArray [0];
+                secondArray[i] = numbersTextArray [1];
+
+            } else {
+
+                firstArray[i] = numbersTextArray [1];
+                secondArray[i] = numbersTextArray [0];
+            }
+        }
+        for (String first : firstArray) {
+            System.out.print(first + " ");
+        }
+        System.out.println();
+        for (String second : secondArray) {
+            System.out.print (second + " ");
+        }
+    }
+}
