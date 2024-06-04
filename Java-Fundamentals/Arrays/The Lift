@@ -1,0 +1,57 @@
+package ArraysExercise;
+
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class TheLift_10 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        int numberOfPeople = Integer.parseInt(scanner.nextLine());
+        int [] liftStatus = Arrays.stream(scanner.nextLine().split(" ")).mapToInt(element -> Integer.parseInt(element)).toArray();
+
+        int freeSeats = 0;
+        boolean enoughSpace = true;
+        boolean peopleLeft = true;
+
+        for (int i = 0; i < liftStatus.length; i++) {
+            freeSeats += 4 - liftStatus[i];
+
+        }
+        for (int i = 0; i < liftStatus.length; i++) {
+
+            if (liftStatus[i] < 4) {
+
+                    for (int j = liftStatus[i]; j < 4; j++) {
+                        liftStatus[i]++;
+                        numberOfPeople--;
+                        freeSeats--;
+
+                        if (numberOfPeople == 0) {
+                            peopleLeft = false;
+                        }
+                        if (freeSeats == 0) {
+                        enoughSpace = false;
+                        }
+                        if (!peopleLeft || !enoughSpace) {
+                            break;
+                        }
+                }
+            }
+            if (!peopleLeft || !enoughSpace) {
+                break;
+            }
+        }
+        if (numberOfPeople == 0 && freeSeats > 0) {
+            System.out.println("The lift has empty spots!");
+
+        } else if (!enoughSpace && numberOfPeople > 0) {
+            System.out.printf("There isn't enough space! %d people in a queue!%n", numberOfPeople);
+        }
+
+        for ( int number : liftStatus) {
+            System.out.print(number + " ");
+        }
+
+    }
+}
