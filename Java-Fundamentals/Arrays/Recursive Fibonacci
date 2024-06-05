@@ -1,0 +1,25 @@
+package ArraysMoreExercise;
+
+import java.util.Scanner;
+
+public class RecursiveFibonacci_03 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        
+        int number = Integer.parseInt(scanner.nextLine());
+            long[] fibbNumbers = new long[50];
+
+            fibbNumbers[0] = 1;
+            fibbNumbers[1] = 1;
+
+        for (int i = 2; i <= 50; i++) {
+            long fib = fibbNumbers[i - 1] + fibbNumbers[i - 2];
+            fibbNumbers[i] = fib;
+
+            if (i == number) {
+                System.out.println(fibbNumbers[i - 1]);
+                break;
+            }
+        }
+    }
+}
