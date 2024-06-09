@@ -1,0 +1,18 @@
+package DataTypesAndVariablesExercise;
+
+import java.util.Scanner;
+
+public class Elevator_03 {
+    public static void main(String[] args) {
+
+        Scanner scanner = new Scanner(System.in);
+
+        int numberOfPersons = Integer.parseInt(scanner.nextLine());
+        int elevatorCapacity = Integer.parseInt(scanner.nextLine());
+
+
+        int courses = (int) Math.ceil((double)numberOfPersons / elevatorCapacity);
+
+        System.out.println(courses);
+    }
+}
