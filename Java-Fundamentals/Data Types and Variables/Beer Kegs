@@ -1,0 +1,30 @@
+package DataTypesAndVariablesExercise;
+
+import java.util.Scanner;
+
+public class BeerKegs_08 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        int numberOfKegs = Integer.parseInt(scanner.nextLine());
+
+        double maxVolumeKeg = 0.0;
+        String maxVolumeKegModel = "";
+
+        for (int i = 1; i <= numberOfKegs; i++) {
+
+            String kegModel = scanner.nextLine();
+            double kegRadius = Double.parseDouble(scanner.nextLine());
+            int kegHeight = Integer.parseInt(scanner.nextLine());
+
+            double kegVolume = Math.PI * Math.pow(kegRadius, 2) * kegHeight;
+
+            if (kegVolume > maxVolumeKeg) {
+                maxVolumeKeg = kegVolume;
+                maxVolumeKegModel = kegModel;
+            }
+
+        }
+        System.out.println(maxVolumeKegModel);
+    }
+}
