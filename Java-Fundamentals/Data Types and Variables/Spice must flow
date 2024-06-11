@@ -1,0 +1,33 @@
+package DataTypesAndVariablesExercise;
+
+import java.util.Scanner;
+
+public class SpiceMustFlow_09 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        int startingYield = Integer.parseInt(scanner.nextLine());
+
+        int spiceExtracted = 0;
+        int countDays = 0;
+
+        while (startingYield > 0) {
+            if (startingYield < 100) {
+                if (spiceExtracted < 26) {
+                    break;
+                }
+                spiceExtracted -= 26;
+                break;
+            }
+
+            spiceExtracted += startingYield - 26;
+            startingYield -= 10;
+            countDays++;
+
+        }
+
+        System.out.println(countDays);
+        System.out.println(spiceExtracted);
+
+    }
+}
