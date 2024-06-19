@@ -1,0 +1,79 @@
+package BasicSyntaxConditionalStatementsAndLoopsExercise;
+
+import java.util.Scanner;
+
+public class VendingMachine_07 {
+    public static void main(String[] args) {
+
+        Scanner scanner = new Scanner(System.in);
+
+        String input = scanner.nextLine();
+
+        double moneySum = 0.0;
+
+        while (!input.equals("Start")) {
+            double coins = Double.parseDouble(input);
+
+            if (coins == 0.1) {
+                moneySum += 0.1;
+            } else if (coins == 0.2) {
+                moneySum += 0.2;
+            } else if (coins == 0.5) {
+                moneySum += 0.5;
+            } else if (coins == 1) {
+                moneySum += 1;
+            } else if (coins == 2) {
+                moneySum += 2;
+            } else {
+                System.out.printf("Cannot accept %.2f%n", coins);
+            }
+
+
+            input = scanner.nextLine();
+        }
+
+        String product = scanner.nextLine();
+
+
+        while (!product.equals("End")) {
+
+            double productPrice = 0;
+            boolean isValid = true;
+            switch (product) {
+                case "Nuts":
+                    productPrice = 2.0;
+                    break;
+                case "Water":
+                    productPrice = 0.7;
+                    break;
+                case "Crisps":
+                    productPrice = 1.5;
+                    break;
+                case "Soda":
+                    productPrice = 0.8;
+                    break;
+                case "Coke":
+                    productPrice = 1.0;
+                    break;
+                default:
+                    System.out.println("Invalid product");
+                    isValid = false;
+                    break;
+            }
+
+                if (productPrice > moneySum) {
+                    System.out.println("Sorry, not enough money");
+                } else {
+                    if (isValid) {
+                        moneySum -= productPrice;
+                        System.out.printf("Purchased %s%n", product);
+                    }
+                }
+
+
+            product = scanner.nextLine();
+        }
+
+        System.out.printf("Change: %.2f", moneySum);
+    }
+}
