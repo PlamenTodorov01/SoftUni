@@ -1,0 +1,31 @@
+package BasicSyntaxConditionalStatementsAndLoopsExercise;
+
+import java.util.Scanner;
+
+public class StrongNumber_06 {
+    public static void main(String[] args) {
+
+        Scanner scanner = new Scanner(System.in);
+
+        int number = Integer.parseInt(scanner.nextLine());
+
+        String numberText = Integer.toString(number);
+        int sum = 0;
+
+        for (int i = 0; i < numberText.length(); i++) {
+            int digit = Integer.parseInt(numberText.charAt(i) + "");
+
+            int result = 1;
+            for (int j = 1; j <= digit ; j++) {
+                result *= j;
+            }
+                sum += result;
+
+        }
+        if (number == sum) {
+            System.out.println("yes");
+        } else {
+            System.out.println("no");
+        }
+    }
+}
