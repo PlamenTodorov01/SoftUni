@@ -1,0 +1,32 @@
+package BasicSyntaxConditionalStatementsAndLoopsExercise;
+
+import java.util.Scanner;
+
+public class PadawanEquipment_09 {
+    public static void main(String[] args) {
+
+        Scanner scanner = new Scanner(System.in);
+
+        double moneyAvailable = Double.parseDouble(scanner.nextLine());
+        int numberOfStudents = Integer.parseInt(scanner.nextLine());
+        double priceOfLightsabers = Double.parseDouble(scanner.nextLine());
+        double priceOfRobes = Double.parseDouble(scanner.nextLine());
+        double priceOfBelts = Double.parseDouble(scanner.nextLine());
+
+       double totalPriceLightsabers = Math.ceil(numberOfStudents * 1.10) * priceOfLightsabers;
+       double totalPriceRobes = numberOfStudents * priceOfRobes;
+
+       double freeBelts = numberOfStudents / 6;
+       double totalPriceBelts = (numberOfStudents - freeBelts) * priceOfBelts;
+
+       double finalPrice = totalPriceLightsabers + totalPriceRobes + totalPriceBelts;
+
+       if (moneyAvailable >= finalPrice) {
+           System.out.printf("The money is enough - it would cost %.2flv.", finalPrice);
+       } else {
+           System.out.printf("George Lucas will need %.2flv more.", finalPrice - moneyAvailable);
+       }
+
+
+    }
+}
