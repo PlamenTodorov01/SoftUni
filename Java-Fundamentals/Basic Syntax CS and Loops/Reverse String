@@ -1,0 +1,18 @@
+package BasicSyntaxConditionalStatementsAndLoopsMoreExercises;
+
+import java.util.Scanner;
+
+public class ReverseString_04 {
+    public static void main(String[] args) {
+
+        String line = new Scanner(System.in).nextLine();
+
+        for (int i = line.length() - 1; i >= 0; i--) {
+            char c = line.charAt(i);
+            System.out.print(c);
+
+        }
+
+
+    }
+}
