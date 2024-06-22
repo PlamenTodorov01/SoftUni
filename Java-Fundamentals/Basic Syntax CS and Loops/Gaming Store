@@ -1,0 +1,75 @@
+package BasicSyntaxConditionalStatementsAndLoopsMoreExercises;
+
+import java.util.Scanner;
+
+public class GamingStore_03 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        double balance = Double.parseDouble(scanner.nextLine());
+        String input = scanner.nextLine();
+        double remainingMoney = balance;
+
+        while (!input.equals("Game Time")) {
+            double availableMoney = remainingMoney;
+            boolean validGame = true;
+
+            switch (input) {
+
+                case "OutFall 4":
+                case "RoverWatch Origins Edition":
+                    if (remainingMoney >= 39.99) {
+                        remainingMoney -= 39.99;
+                    }
+                    break;
+
+                case "CS: OG":
+                    if (remainingMoney >= 15.99) {
+                        remainingMoney -= 15.99;
+                    }
+                    break;
+
+                case "Zplinter Zell":
+                    if (remainingMoney >= 19.99) {
+                        remainingMoney -= 19.99;
+                    }
+                    break;
+
+                case "Honored 2":
+                    if (remainingMoney >= 59.99) {
+                        remainingMoney -= 59.99;
+                    }
+                    break;
+
+                case "RoverWatch":
+                    if (remainingMoney >= 29.99) {
+                        remainingMoney -= 29.99;
+                    }
+                    break;
+
+                default:
+                    System.out.println("Not Found");
+                    validGame = false;
+                    break;
+            }
+
+            if (availableMoney == remainingMoney && validGame) {
+                System.out.println("Too expensive");
+            } else {
+                System.out.printf("Bought %s%n", input);
+            }
+
+            if (remainingMoney == 0) {
+                System.out.println("Out of money!");
+            }
+
+
+            input = scanner.nextLine();
+        }
+
+        if (remainingMoney != 0) {
+        System.out.printf("Total spent: $%.2f. Remaining: $%.2f", balance - remainingMoney, remainingMoney);
+        }
+
+    }
+}
