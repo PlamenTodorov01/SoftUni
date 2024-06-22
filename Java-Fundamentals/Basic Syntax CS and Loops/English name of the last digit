@@ -1,0 +1,40 @@
+package BasicSyntaxConditionalStatementsAndLoopsMoreExercises;
+
+import java.util.Scanner;
+
+public class EnglishNameOfTheLastDigit_02 {
+    public static void main(String[] args) {
+       Scanner scanner = new Scanner (System.in);
+
+        System.out.println(convertLastDigitToName(scanner.nextLine()));
+
+    }
+
+    public static String convertLastDigitToName(String line) {
+
+        char lastSymbol = line.charAt(line.length() - 1);
+
+        if (lastSymbol == '1') {
+            return "one";
+        } else if (lastSymbol == '2') {
+            return "two";
+        } else if (lastSymbol == '3') {
+            return "three";
+        } else if (lastSymbol == '4') {
+            return "four";
+        }else if (lastSymbol == '5') {
+            return "five";
+        }else if (lastSymbol == '6') {
+            return "six";
+        }else if (lastSymbol == '7') {
+            return "seven";
+        }else if (lastSymbol == '8') {
+            return "eight";
+        }else if (lastSymbol == '9') {
+            return "nine";
+        }else {
+            return "zero";
+        }
+
+    }
+}
