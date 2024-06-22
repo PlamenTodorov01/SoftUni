@@ -1,0 +1,29 @@
+package BasicSyntaxConditionalStatementsAndLoopsMoreExercises;
+
+import java.util.Scanner;
+
+public class Messages_05 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        int numberOfEntries = Integer.parseInt(scanner.nextLine());
+
+        for (int i = 0; i < numberOfEntries; i++) {
+            String numberAsString = scanner.nextLine();
+            if (numberAsString.equals("0")) {
+                System.out.print(" ");
+                continue;
+            }
+            int mainDigit = numberAsString.charAt(0) - 48;
+            int numberOfDigits = numberAsString.length();
+            int offset = (mainDigit - 2) * 3;
+            if (mainDigit == 8 || mainDigit == 9) {
+                offset++;
+            }
+            int letterIndex = offset + numberOfDigits - 1;
+           char c = (char) ('a' + letterIndex);
+            System.out.print(c);
+        }
+
+    }
+}
