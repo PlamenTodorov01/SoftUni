@@ -1,0 +1,54 @@
+package ListsLab;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class MergingLists_03 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+
+        List<Integer> firstList = parseLineOfNumbers(scanner);
+        List<Integer> secondList = parseLineOfNumbers(scanner);
+
+        List<Integer> newList = new ArrayList<>();
+
+
+        int firstListIndex = 0;
+        int secondListIndex = 0;
+
+        while (firstListIndex < firstList.size() || secondListIndex < secondList.size()) {
+
+            if (firstListIndex < firstList.size()) {
+                newList.add(firstList.get(firstListIndex));
+            }
+            if (secondListIndex < secondList.size()) {
+                newList.add(secondList.get(secondListIndex));
+            }
+
+            firstListIndex++;
+            secondListIndex++;
+        }
+
+        for (Integer numbers : newList) {
+            System.out.print(numbers + " ");
+
+        }
+
+
+    }
+
+    public static List<Integer> parseLineOfNumbers(Scanner scanner) {
+        String line = scanner.nextLine();
+        String[] numbersAsString = line.split(" ");
+        List<Integer> numbers = new ArrayList<>();
+
+        for (String s : numbersAsString) {
+            int number = Integer.parseInt(s);
+            numbers.add(number);
+
+        }
+        return numbers;
+    }
+}
