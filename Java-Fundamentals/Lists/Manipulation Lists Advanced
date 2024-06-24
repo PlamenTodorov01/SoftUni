@@ -1,0 +1,121 @@
+package ListsLab;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class ListManipulationAdvanced_05 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        List<Integer> numbers = getListOfNumbers(scanner);
+
+        String input = scanner.nextLine();
+
+        while (!input.equals("end")) {
+            String [] symbols = input.split(" ");
+
+            if (symbols[0].equals("Contains")) {
+                if (numbers.contains(Integer.valueOf(symbols[1]))) {
+                    System.out.println("Yes");
+                } else {
+                    System.out.println("No such number");
+                }
+
+            } else if (symbols[0].equals("Print") && symbols[1].equals("even")) {
+                List<Integer> evenNumbersList = new ArrayList<>();
+                for (int i = 0; i < numbers.size(); i++) {
+                    if (numbers.get(i) % 2 == 0) {
+                        evenNumbersList.add(numbers.get(i));
+                    }
+                }
+
+                for (Integer number : evenNumbersList) {
+                    System.out.print(number + " ");
+                }
+                System.out.println();
+
+            } else if (symbols[0].equals("Print") && symbols[1].equals("odd")) {
+                List<Integer> oddNumbersList = new ArrayList<>();
+                for (int i = 0; i < numbers.size(); i++) {
+                    if (numbers.get(i) % 2 == 1) {
+                        oddNumbersList.add(numbers.get(i));
+                    }
+
+                }
+                for (Integer number : oddNumbersList) {
+                    System.out.print(number + " ");
+                }
+                System.out.println();
+
+            } else if (symbols[0].equals("Get")) {
+                    int sum = 0;
+                for (int i = 0; i < numbers.size(); i++) {
+                    int number = numbers.get(i);
+                    sum += number;
+
+                }
+                System.out.println(sum);
+
+            } else if (symbols[0].equals("Filter")) {
+                List<Integer> filteredList = new ArrayList<>();
+
+                switch (symbols[1]) {
+                    case "<":
+                        for (int i = 0; i < numbers.size(); i++) {
+                            if (numbers.get(i) < Integer.parseInt(symbols[2])) {
+                                filteredList.add(numbers.get(i));
+                            }
+                        }
+
+                        break;
+                    case ">":
+
+                        for (int i = 0; i < numbers.size(); i++) {
+                            if (numbers.get(i) > Integer.parseInt(symbols[2])) {
+                                filteredList.add(numbers.get(i));
+                            }
+                        }
+                        break;
+                    case ">=":
+                        for (int i = 0; i < numbers.size(); i++) {
+                            if (numbers.get(i) >= Integer.parseInt(symbols[2])) {
+                                filteredList.add(numbers.get(i));
+                            }
+                        }
+                        break;
+                    case "<=":
+                        for (int i = 0; i < numbers.size(); i++) {
+                            if (numbers.get(i) <= Integer.parseInt(symbols[2])) {
+                                filteredList.add(numbers.get(i));
+                            }
+                        }
+                        break;
+                }
+                for (Integer number : filteredList) {
+                    System.out.print(number + " ");
+                }
+                System.out.println();
+
+            }
+
+            input = scanner.nextLine();
+        }
+
+
+
+    }
+    public static List<Integer> getListOfNumbers (Scanner scanner) {
+        String line = scanner.nextLine();
+        String [] numbersAsString = line.split(" ");
+        List<Integer> numbers = new ArrayList<>();
+
+        for (int i = 0; i < numbersAsString.length; i++) {
+            int number = Integer.parseInt(numbersAsString[i]);
+
+            numbers.add(number);
+
+        }
+        return numbers;
+    }
+}
