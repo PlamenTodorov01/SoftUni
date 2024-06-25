@@ -1,0 +1,43 @@
+package ListsExercise;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class HouseParty_03 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner (System.in);
+
+        int n = Integer.parseInt(scanner.nextLine());
+
+        List<String> guests = new ArrayList<>();
+
+        for (int i = 0; i < n; i++) {
+            String input = scanner.nextLine();
+            String [] elements = input.split(" ");
+
+            // is going
+            if (elements.length == 3) {
+                if (guests.contains(elements[0])) {
+                    System.out.println(elements[0] + " is already in the list!");
+                } else {
+                    guests.add(elements[0]);
+                }
+
+                // is not going
+            } else {
+                if (!guests.contains(elements[0])) {
+                    System.out.println(elements[0] + " is not in the list!");
+                } else {
+                    guests.remove(elements[0]);
+                }
+
+            }
+        }
+
+        for (String guest : guests) {
+            System.out.println(guest + " ");
+        }
+
+    }
+}
