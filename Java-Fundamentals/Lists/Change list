@@ -1,0 +1,59 @@
+package ListsExercise;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class ChangeList_02 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        List<Integer> numbers = getListOfNumbers(scanner);
+
+        String input = scanner.nextLine();
+
+        while (!input.equals("end")) {
+            String [] elements = input.split(" ");
+
+
+            if (elements[0].equals("Delete")) {
+                int numberToDelete = Integer.parseInt(elements[1]);
+
+                for (int i = 0; i < numbers.size(); i++) {
+                    if (numbers.get(i) == numberToDelete) {
+                        numbers.remove(i);
+                        i--;
+                    }
+
+                }
+
+            } else if (elements[0].equals("Insert")) {
+                int elementToInsert = Integer.parseInt(elements[1]);
+                int indexToInsert = Integer.parseInt(elements[2]);
+
+                numbers.add(indexToInsert,elementToInsert);
+
+            }
+
+            input = scanner.nextLine();
+        }
+
+        for (int i = 0; i < numbers.size(); i++) {
+            System.out.print(numbers.get(i) + " ");
+
+        }
+
+    }
+
+    public static List<Integer> getListOfNumbers (Scanner scanner) {
+        String line = scanner.nextLine();
+        String [] numbersAsString = line.split(" ");
+
+        List<Integer> numbersList = new ArrayList<>();
+
+        for (int i = 0; i < numbersAsString.length; i++) {
+            numbersList.add(Integer.parseInt(numbersAsString[i]));
+        }
+        return numbersList;
+    }
+}
