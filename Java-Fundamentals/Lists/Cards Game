@@ -1,0 +1,63 @@
+package ListsExercise;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class CardsGame_06 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        List<Integer> firstPlayerDeck = getListOfNumbers(scanner);
+        List<Integer> secondPlayerDeck = getListOfNumbers(scanner);
+
+        int i = 0;
+        while (!firstPlayerDeck.isEmpty() && !secondPlayerDeck.isEmpty()) {
+
+            int firstPlayerCard = firstPlayerDeck.get(0);
+            int secondPlayerCard = secondPlayerDeck.get(0);
+
+            secondPlayerDeck.remove(0);
+            firstPlayerDeck.remove(0);
+
+            if (firstPlayerCard > secondPlayerCard) {
+                firstPlayerDeck.add(firstPlayerCard);
+                firstPlayerDeck.add(secondPlayerCard);
+
+
+            } else if (firstPlayerCard < secondPlayerCard) {
+                secondPlayerDeck.add(secondPlayerCard);
+                secondPlayerDeck.add(firstPlayerCard);
+            }
+
+        }
+
+        if (!firstPlayerDeck.isEmpty()) {
+            System.out.printf("First player wins! Sum: %d", getSumOfNumbersFromList(firstPlayerDeck));
+
+        } else {
+            System.out.printf("Second player wins! Sum: %d", getSumOfNumbersFromList(secondPlayerDeck));
+        }
+    }
+
+    public static List<Integer> getListOfNumbers (Scanner scanner) {
+        String line = scanner.nextLine();
+        String [] numbersAsString = line.split(" ");
+
+        List<Integer> numbersList = new ArrayList<>();
+
+        for (int i = 0; i < numbersAsString.length; i++) {
+            numbersList.add(Integer.parseInt(numbersAsString[i]));
+        }
+        return numbersList;
+    }
+
+    public static int getSumOfNumbersFromList (List<Integer> numbers) {
+        int sum = 0;
+        for (Integer number : numbers) {
+            sum += number;
+        }
+        return sum;
+
+    }
+}
