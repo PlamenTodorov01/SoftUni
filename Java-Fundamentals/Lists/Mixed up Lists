@@ -1,0 +1,50 @@
+package ListsMoreExercise;
+
+import java.util.*;
+
+public class MixedUpLists_04 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        List<Integer> firstList = Arrays.stream(scanner.nextLine().split(" "))
+                .map(Integer::parseInt).toList();
+        List<Integer> secondList = Arrays.stream(scanner.nextLine().split(" "))
+                .map(Integer::parseInt).toList();
+
+        List<Integer> mixedList = new ArrayList<>();
+        int sizeOfSmallestList = Math.min(firstList.size(), secondList.size());
+
+        for (int i = 0; i < sizeOfSmallestList; i++) {
+            mixedList.add(firstList.get(i));
+            mixedList.add(secondList.get(sizeOfSmallestList - 1 - i));
+        }
+
+        int firstConstraint = 0;
+        int secondConstraint = 0;
+
+        if (firstList.size() > secondList.size()) {
+            firstConstraint = firstList.get(firstList.size() - 2);
+            secondConstraint = firstList.get(firstList.size() - 1);
+        } else {
+            firstConstraint = secondList.get(0);
+            secondConstraint = secondList.get(1);
+        }
+
+        int i = 0;
+        while (i < mixedList.size()) {
+            if (mixedList.get(i) <= Math.min(firstConstraint, secondConstraint)
+                    || mixedList.get(i) >= Math.max(firstConstraint, secondConstraint)) {
+                mixedList.remove(mixedList.get(i));
+            } else {
+                i++;
+            }
+        }
+
+        Collections.sort(mixedList);
+        for (Integer number : mixedList) {
+            System.out.print(number + " ");
+
+        }
+
+    }
+}
