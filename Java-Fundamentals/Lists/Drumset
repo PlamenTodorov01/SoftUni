@@ -1,0 +1,47 @@
+package ListsMoreExercise;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Scanner;
+
+public class DrumSet_04 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        double savings = Double.parseDouble(scanner.nextLine());
+        List<Integer> drumSet = new ArrayList<>(Arrays.stream(scanner.nextLine().split(" "))
+                .map(Integer::parseInt).toList());
+        String input = scanner.nextLine();
+
+        List<Integer> numbers = new ArrayList<>(drumSet);
+
+        while (!input.equals("Hit it again, Gabsy!")) {
+            int hitPower = Integer.parseInt(input);
+
+            numbers.replaceAll(integer -> integer - hitPower);
+
+            for (int i = 0; i < numbers.size(); i++) {
+                if (numbers.get(i) <= 0) {
+                    if (savings >= drumSet.get(i) * 3) {
+                        numbers.set(i, drumSet.get(i));
+                        savings -= drumSet.get(i) * 3;
+                    } else {
+                        numbers.remove(i);
+                        drumSet.remove(i);
+                        i--;
+                    }
+                }
+            }
+            input = scanner.nextLine();
+        }
+
+        for (Integer number : numbers) {
+            System.out.print(number + " ");
+        }
+
+        System.out.println();
+        System.out.printf("Gabsy has %.2flv.", savings);
+
+    }
+}
