@@ -1,0 +1,63 @@
+package ListsMoreExercise;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class Take_SkipRope_03 {
+    public static void main(String[] args) {
+
+        Scanner scanner = new Scanner(System.in);
+
+        String text = scanner.nextLine();
+
+        List<Integer> numbersList = new ArrayList<>();
+        List<Character> charsList = new ArrayList<>();
+
+        for (int i = 0; i < text.length(); i++) {
+           if (Character.isDigit(text.charAt(i))) {
+                numbersList.add(Integer.parseInt(text.charAt(i) + ""));
+            } else {
+               charsList.add(text.charAt(i));
+            }
+
+        }
+
+        List<Integer> takeList = new ArrayList<>();
+        List<Integer> skipList = new ArrayList<>();
+
+        for (int i = 0; i < numbersList.size(); i++) {
+            if (i % 2 == 0) {
+                takeList.add(numbersList.get(i));
+            } else {
+                skipList.add(numbersList.get(i));
+            }
+        }
+
+        StringBuilder sb = getStringBuilder(takeList, skipList, charsList);
+        System.out.println(sb);
+
+    }
+
+    private static StringBuilder getStringBuilder(List<Integer> takeList, List<Integer> skipList, List<Character> charsList) {
+        StringBuilder sb = new StringBuilder();
+
+        int startIndex = 0;
+        int endIndex = 0;
+
+        for (int i = 0; i < takeList.size(); i++) {
+            int takeCount = takeList.get(i);
+            int skipCount = skipList.get(i);
+
+            endIndex = startIndex + takeCount;
+            for (int j = startIndex; j < endIndex; j++) {
+                if (j == charsList.size()) {
+                    break;
+                }
+                sb.append(charsList.get(j));
+            }
+            startIndex = endIndex + skipCount;
+        }
+        return sb;
+    }
+}
