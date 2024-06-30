@@ -1,0 +1,28 @@
+package MethodsLab;
+
+import java.util.Scanner;
+
+public class PrintingTriangle_03 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        int maxLineOfNumbers = scanner.nextInt();
+
+        for (int i = 1 ; i <= maxLineOfNumbers; i++) {
+            printLineOfNumbers(i);
+        }
+
+        for (int i = maxLineOfNumbers - 1; i >= 0 ; i--) {
+            printLineOfNumbers(i);
+        }
+
+
+    }
+    public static void printLineOfNumbers (int maxNumber) {
+        for (int i = 1; i <= maxNumber ; i++) {
+            System.out.print(i + " ");
+
+        }
+        System.out.println();
+    }
+}
