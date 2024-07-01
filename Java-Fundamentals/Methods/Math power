@@ -1,0 +1,28 @@
+package MethodsLab;
+
+import java.io.FilterOutputStream;
+import java.text.DecimalFormat;
+import java.util.Scanner;
+
+public class MathPower_08 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        double number = Double.parseDouble(scanner.nextLine());
+        int numberPower = Integer.parseInt(scanner.nextLine());
+
+        DecimalFormat formating = new DecimalFormat("0.####");
+
+        double result = getsNumberPower(number,numberPower);
+
+        System.out.println(formating.format(result));
+    }
+    public static double getsNumberPower (double number, int numberPower) {
+        double result = 1;
+
+        for (int i = 0; i < numberPower; i++) {
+            result *= number;
+        }
+        return result;
+    }
+}
