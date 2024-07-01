@@ -1,0 +1,26 @@
+package MethodsLab;
+
+import java.util.Scanner;
+
+public class RepeatString_07 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        String input = scanner.nextLine();
+        int repeatCount = Integer.parseInt(scanner.nextLine());
+
+        String s = repeatString(input, repeatCount);
+        System.out.println(s);
+    }
+
+    public static String repeatString (String name, int repeatCount) {
+
+        StringBuilder resultTwo = new StringBuilder();
+
+        for (int i = 0; i < repeatCount; i++) {
+            resultTwo.append(name);
+
+        }
+        return String.valueOf(resultTwo);
+    }
+}
