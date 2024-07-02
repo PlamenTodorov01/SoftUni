@@ -1,0 +1,40 @@
+package MethodsLab;
+
+import java.text.DecimalFormat;
+import java.util.Scanner;
+
+public class MathOperations_11 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        DecimalFormat newFormat = new DecimalFormat("0.####");
+
+        double first = Double.parseDouble(scanner.nextLine());
+        char symbol = scanner.nextLine().charAt(0);
+        double second = Double.parseDouble(scanner.nextLine());
+
+        System.out.println (newFormat.format(calculateResult(first,symbol,second)));
+
+    }
+
+    public static double calculateResult (double firstNumber, char operator, double secondNumber) {
+
+        switch (operator) {
+            case '+':
+                return firstNumber + secondNumber;
+
+            case '-':
+                return firstNumber - secondNumber;
+
+            case '/':
+                return firstNumber / secondNumber;
+
+            case '*':
+                return firstNumber * secondNumber;
+
+            default:
+                break;
+        }
+        return 0;
+    }
+
+}
