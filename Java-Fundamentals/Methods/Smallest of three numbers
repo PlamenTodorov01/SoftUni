@@ -1,0 +1,30 @@
+package MethodsExercise;
+
+import java.util.Scanner;
+
+public class SmallestOfThreeNumbers_01 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        int firstNumber = scanner.nextInt();
+        int secondNumber = scanner.nextInt();
+        int thirdNumber = scanner.nextInt();
+
+        System.out.println(getMinNumber(firstNumber,secondNumber,thirdNumber));
+    }
+
+    public static int getMinNumber (int first, int second, int third) {
+        int minNumber = Integer.MAX_VALUE;
+
+        if (first < minNumber) {
+            minNumber = first;
+        }
+        if (second < minNumber) {
+            minNumber = second;
+        }
+        if (third < minNumber) {
+            minNumber = third;
+        }
+        return minNumber;
+    }
+}
