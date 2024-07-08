@@ -1,0 +1,35 @@
+package MethodsExercise;
+
+import java.util.Scanner;
+
+public class PalindromeIntegers_09 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        String input = scanner.nextLine();
+
+        while (!input.equals("END")) {
+            int n = Integer.parseInt(input);
+
+            if (n > 0) {
+                System.out.println(checkIfPalidrome(n));
+            }
+
+            input = scanner.nextLine();
+        }
+
+    }
+
+    public static boolean checkIfPalidrome(int number) {
+        String numberAsString = String.valueOf(number);
+        boolean isPalidrome = true;
+
+        for (int i = 0; i < numberAsString.length() / 2; i++) {
+            if (numberAsString.charAt(i) != numberAsString.charAt(numberAsString.length() - 1 - i)) {
+                isPalidrome = false;
+            }
+        }
+
+        return isPalidrome;
+    }
+}
