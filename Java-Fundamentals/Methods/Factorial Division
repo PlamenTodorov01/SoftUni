@@ -1,0 +1,26 @@
+package MethodsExercise;
+
+import java.util.Scanner;
+
+public class FactorialDivision_08 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner (System.in);
+
+        int first = Integer.parseInt(scanner.nextLine());
+        int second = Integer.parseInt(scanner.nextLine());
+
+        if (first < 0 || second < 0) {
+            return;
+        }
+        double finalResult = getFactorialOfNumber(first) * 1.0 / getFactorialOfNumber(second);
+
+        System.out.printf("%.2f", finalResult);
+    }
+    public static long getFactorialOfNumber (int n) {
+        long result = 1L;
+        for (int i = 1; i <= n ; i++) {
+            result *= i;
+        }
+        return result;
+    }
+}
