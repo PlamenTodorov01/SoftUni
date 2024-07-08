@@ -1,0 +1,52 @@
+package MethodsExercise;
+
+import java.util.Scanner;
+
+public class TopNumber_10 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+
+        int n = Integer.parseInt(scanner.nextLine());
+
+        for (int i = 0; i <= n; i++) {
+            if (checkIfDivisible(i) && checkIfHasOddDigit(i)) {
+                System.out.println(i);
+            }
+
+        }
+    }
+
+    public static boolean checkIfDivisible (int number) {
+        String numberAsString = String.valueOf(number);
+
+        boolean isDivisible = false;
+        int sumOfAllDigits = 0;
+
+        for (int i = 0; i < numberAsString.length(); i++) {
+            int currentDigit = Integer.parseInt(String.valueOf(numberAsString.charAt(i)));
+            sumOfAllDigits += currentDigit;
+
+        }
+        if (sumOfAllDigits % 8 == 0) {
+            isDivisible = true;
+        }
+        return isDivisible;
+    }
+
+    public static boolean checkIfHasOddDigit (int number) {
+        String numberAsString = String.valueOf(number);
+
+        boolean hasOddDigit = false;
+
+        for (int i = 0; i < numberAsString.length(); i++) {
+            int currentDigit = Integer.parseInt(String.valueOf(numberAsString.charAt(i)));
+
+            if (currentDigit % 2 != 0 ) {
+                hasOddDigit = true;
+            }
+
+        }
+        return hasOddDigit;
+    }
+}
