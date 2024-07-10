@@ -1,0 +1,43 @@
+package MethodsMoreExercise;
+
+import java.util.Scanner;
+
+public class DataTypes_01 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        String firstInput = scanner.nextLine();
+        String secondInput = scanner.nextLine();
+
+        switch (firstInput) {
+            case "int":
+
+                int intNumber = Integer.parseInt(String.valueOf(secondInput));
+                printNumber(intNumber);
+                break;
+
+            case "real":
+                double realNumber = Double.parseDouble(String.valueOf(secondInput));
+                printNumber(realNumber);
+                break;
+
+            case "string":
+                printNumber(secondInput);
+                break;
+
+            default:
+                break;
+        }
+    }
+    public static void printNumber (int number) {
+        System.out.println(number * 2);
+    }
+
+    public static void printNumber (double number) {
+        System.out.printf("%.2f", number * 1.5);
+    }
+
+    public static void printNumber (String text) {
+        System.out.println("$" + text + "$");
+    }
+}
