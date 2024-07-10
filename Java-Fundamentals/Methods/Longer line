@@ -1,0 +1,49 @@
+package MethodsMoreExercise;
+
+import java.util.Scanner;
+
+public class LongerLine_03 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        int x1 = Integer.parseInt(scanner.nextLine());
+        int y1 = Integer.parseInt(scanner.nextLine());
+        int x2 = Integer.parseInt(scanner.nextLine());
+        int y2 = Integer.parseInt(scanner.nextLine());
+        int x3 = Integer.parseInt(scanner.nextLine());
+        int y3 = Integer.parseInt(scanner.nextLine());
+        int x4 = Integer.parseInt(scanner.nextLine());
+        int y4 = Integer.parseInt(scanner.nextLine());
+
+        int firstPointValue = calculatePointValue(x1,y1);
+        int secondPointValue = calculatePointValue(x2,y2);
+        int thirdPointValue = calculatePointValue(x3,y3);
+        int fourthPointValue = calculatePointValue(x4,y4);
+
+        int firstLineLength = calculateLineLength(firstPointValue, secondPointValue);
+        int secondLineLength = calculateLineLength(thirdPointValue, fourthPointValue);
+
+        if (firstLineLength >= secondLineLength) {
+            if (Math.abs(firstPointValue) <= Math.abs(secondPointValue)) {
+                System.out.printf("(%d, %d)(%d, %d)", x1,y1,x2,y2);
+            } else {
+                System.out.printf("(%d, %d)(%d, %d)", x2,y2,x1,y1);
+            }
+        } else {
+            if (Math.abs(thirdPointValue) <= Math.abs(fourthPointValue)) {
+                System.out.printf("(%d, %d)(%d, %d)", x3,y3,x4,y4);
+            } else {
+                System.out.printf("(%d, %d)(%d, %d)", x4,y4,x3,y3);
+            }
+        }
+    }
+
+    public static int calculatePointValue (int x, int y) {
+        return x + y;
+
+    }
+
+    public static int calculateLineLength (int firstValue, int secondValue) {
+        return Math.abs(firstValue - secondValue);
+    }
+}
