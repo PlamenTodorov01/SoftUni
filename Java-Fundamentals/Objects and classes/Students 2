@@ -1,0 +1,110 @@
+package ObjectsAndClassesLab;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class Students_06 {
+    public static class Student {
+        String firstName;
+        String lastName;
+        int age;
+        String homeTown;
+
+        public Student (String firstName, String lastName, int age, String homeTown) {
+            this.firstName = firstName;
+            this.lastName = lastName;
+            this.age = age;
+            this.homeTown = homeTown;
+
+        }
+
+
+
+        public void setFirstName (String firstName) {
+            this.firstName = firstName;
+        }
+
+        public String getFirstName() {
+            return firstName;
+        }
+
+        public void setLastName (String lastName) {
+            this.lastName = lastName;
+        }
+
+        public String getLastName() {
+            return lastName;
+        }
+
+        public void setAge (int age) {
+            this.age = age;
+        }
+
+        public int getAge() {
+            return age;
+        }
+
+        public void setHomeTown (String homeTown) {
+            this.homeTown = homeTown;
+        }
+
+        public String getHomeTown() {
+            return homeTown;
+        }
+
+    }
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        String line = scanner.nextLine();
+        List<Student> Students = new ArrayList<>();
+
+        while(!line.equals("end")) {
+            String[] studentInfo = line.split(" ");
+
+           String firstName = studentInfo[0];
+           String lastName = studentInfo[1];
+           int age = Integer.parseInt(studentInfo[2]);
+           String homeTown = studentInfo[3];
+
+           Student student = new Student(firstName,lastName,age,homeTown);
+
+           int existingIndex = findStudentIndex(Students, firstName, lastName);
+
+           if (existingIndex != -1) {
+               Students.get(existingIndex).setHomeTown(student.homeTown);
+               Students.get(existingIndex).setAge(student.age);
+
+
+           } else {
+               Students.add(student);
+           }
+
+
+            line = scanner.nextLine();
+        }
+
+        String cityName = scanner.nextLine();
+
+        for (Student student : Students) {
+            if (student.getHomeTown().equals(cityName)) {
+                System.out.printf("%s %s is %d years old%n", student.firstName, student.lastName, student.age);
+            }
+
+
+        }
+
+    }
+
+    static int findStudentIndex (List<Student> Students, String firstName, String lastName ) {
+        for (int i = 0; i < Students.size(); i++) {
+            if (Students.get(i).firstName.equals(firstName) && Students.get(i).lastName.equals(lastName)) {
+                return i;
+            }
+
+        }
+        return -1;
+
+    }
+}
