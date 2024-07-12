@@ -1,0 +1,76 @@
+package ObjectsAndClassesLab;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class Students_05 {
+    static class Student {
+        String firstName;
+        String lastName;
+        int age;
+        String homeTown;
+
+        public void setFirstName(String firstName) {
+            this.firstName = firstName;
+        }
+
+        public void setLastName(String lastName) {
+            this.lastName = lastName;
+        }
+
+        public void setAge(int age) {
+            this.age = age;
+        }
+
+        public void setHomeTown(String homeTown) {
+            this.homeTown = homeTown;
+        }
+
+        public String getFirstName() {
+            return firstName;
+        }
+
+        public String getLastName() {
+            return lastName;
+        }
+
+        public int getAge() {
+            return age;
+        }
+
+        public String getHomeTown() {
+            return homeTown;
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        String line = scanner.nextLine();
+        List<Student> studentList = new ArrayList<>();
+
+        while (!line.equals("end")) {
+            String[] studentData = line.split(" ");
+            Student student = new Student();
+
+            student.setFirstName(studentData[0]);
+            student.setLastName(studentData[1]);
+            student.setAge(Integer.parseInt(studentData[2]));
+            student.setHomeTown(studentData[3]);
+
+            studentList.add(student);
+
+            line = scanner.nextLine();
+        }
+
+        String townName = scanner.nextLine();
+
+        for (Student student : studentList) {
+            if (townName.equals(student.getHomeTown())) {
+                System.out.printf("%s %s is %d years old%n", student.getFirstName(), student.getLastName(), student.getAge());
+            }
+
+        }
+    }
+}
