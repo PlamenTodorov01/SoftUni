@@ -1,0 +1,86 @@
+package ObjectsAndClassesMoreExercise;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class RawData_02 {
+
+    static class Car {
+        String model;
+        int engineSpeed;
+        int enginePower;
+        int cargoWeight;
+        String cargoType;
+        List<Double> tiresPressure;
+
+        Car(String model, int engineSpeed, int enginePower, int cargoWeight, String cargoType,
+            List<Double> tires) {
+            this.model = model;
+            this.engineSpeed = engineSpeed;
+            this.enginePower = enginePower;
+            this.cargoWeight = cargoWeight;
+            this.cargoType = cargoType;
+            this.tiresPressure = tires;
+
+        }
+
+        public String getModel() {
+            return this.model;
+        }
+
+        public int getEnginePower() {
+            return enginePower;
+        }
+
+        public String getCargoType() {
+            return cargoType;
+        }
+
+
+        public boolean hasValidPressure() {
+            boolean hasPressure = false;
+          
+            for (Double tire : tiresPressure) {
+                if (tire < 1.0) {
+                    hasPressure = true;
+                    break;
+                }
+
+            }
+            return hasPressure;
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        int numberOfCars = Integer.parseInt(scanner.nextLine());
+        List<Car> carsCollection = new ArrayList<>();
+
+        for (int i = 0; i < numberOfCars; i++) {
+            String[] carInfo = scanner.nextLine().split(" ");
+            List<Double> carTires = new ArrayList<>();
+
+            for (int j = 5; j < carInfo.length; j += 2) {
+                carTires.add(Double.parseDouble(carInfo[j]));
+            }
+
+            Car car = new Car(carInfo[0], Integer.parseInt(carInfo[1]), Integer.parseInt(carInfo[2]),
+                    Integer.parseInt(carInfo[3]), carInfo[4], carTires);
+            carsCollection.add(car);
+        }
+
+        String command = scanner.nextLine();
+
+        if (command.equals("fragile")) {
+            carsCollection.stream().filter(c -> c.getCargoType().equals("fragile") && c.hasValidPressure())
+                    .forEach(c -> System.out.println(c.getModel()));
+
+        } else {
+            carsCollection.stream().filter(c -> c.getCargoType().equals("flamable") && c.getEnginePower() > 250)
+                    .forEach(c -> System.out.println(c.getModel()));
+        }
+
+    }
+}
