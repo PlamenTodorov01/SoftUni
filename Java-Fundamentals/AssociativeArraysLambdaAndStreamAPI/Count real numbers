@@ -1,0 +1,34 @@
+package AssociativeArraysLambdaAndStreamAPI_Lab;
+
+import java.text.DecimalFormat;
+import java.util.Map;
+import java.util.Scanner;
+import java.util.TreeMap;
+
+public class CountRealNumbers_01 {
+    public static void main(String[] args) {
+
+        Scanner scanner = new Scanner(System.in);
+
+        String[] numbersAsStrings = scanner.nextLine().split(" ");
+        TreeMap<Double,Integer> numberRepetitions = new TreeMap<>();
+
+        for (int i = 0; i < numbersAsStrings.length; i++) {
+            double number = Double.parseDouble(numbersAsStrings[i]);
+
+            Integer repetitions = numberRepetitions.get(number);
+
+            if (repetitions == null) {
+                repetitions = 0;
+            }
+            numberRepetitions.put(number, repetitions + 1);
+        }
+
+        DecimalFormat df = new DecimalFormat("#.######");
+        for (Map.Entry<Double,Integer> entry : numberRepetitions.entrySet()) {
+            System.out.printf("%s -> %d\n", df.format(entry.getKey()), entry.getValue());
+
+        }
+
+    }
+}
