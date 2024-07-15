@@ -1,0 +1,150 @@
+package ObjectsAndClassesMoreExercise;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+import java.util.stream.Collectors;
+
+public class CarSalesman_03 {
+
+    static class Car {
+        String carModel;
+        Engine engine;
+        String carWeight = "n/a";
+        String carColor = "n/a";
+
+        Car(String carModel, Engine engine) {
+            this.carModel = carModel;
+            this.engine = engine;
+        }
+
+        public void setCarWeight(String carWeight) {
+            this.carWeight = carWeight;
+        }
+
+        public void setCarColor(String carColor) {
+            this.carColor = carColor;
+        }
+
+        public String getCarModel() {
+            return carModel;
+        }
+
+        public Engine getEngine() {
+            return engine;
+        }
+
+        public String getCarColor() {
+            return carColor;
+        }
+
+        public String getCarWeight() {
+            return carWeight;
+        }
+    }
+
+    static class Engine {
+        String engineModel;
+        int enginePower;
+        String engineDisplacement = "n/a";
+        String engineEfficiency = "n/a";
+
+        Engine(String engineModel, int enginePower) {
+            this.engineModel = engineModel;
+            this.enginePower = enginePower;
+        }
+
+        public void setEngineDisplacement(String engineDisplacement) {
+            this.engineDisplacement = engineDisplacement;
+        }
+
+        public void setEngineEfficiency(String engineEfficiency) {
+            this.engineEfficiency = engineEfficiency;
+        }
+
+        public String getEngineDisplacement() {
+            return engineDisplacement;
+        }
+
+        public String getEngineEfficiency() {
+            return engineEfficiency;
+        }
+
+        public String getEngineModel() {
+            return engineModel;
+        }
+
+        public int getEnginePower() {
+            return enginePower;
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        int numberOfEngines = Integer.parseInt(scanner.nextLine());
+        List<Engine> allEngines = new ArrayList<>();
+
+        for (int i = 0; i < numberOfEngines; i++) {
+            String[] engineDetails = scanner.nextLine().split(" ");
+            Engine engine = new Engine(engineDetails[0], Integer.parseInt(engineDetails[1]));
+
+            if (engineDetails.length > 2) {
+                if (Character.isDigit(engineDetails[2].charAt(0))) {
+                    engine.setEngineDisplacement(engineDetails[2]);
+                } else {
+                    engine.setEngineEfficiency(engineDetails[2]);
+                }
+            }
+
+            if (engineDetails.length > 3) {
+                engine.setEngineEfficiency(engineDetails[3]);
+            }
+
+            allEngines.add(engine);
+        }
+
+        int numberOfCars = Integer.parseInt(scanner.nextLine());
+        List<Car> allCars = new ArrayList<>();
+
+        for (int i = 0; i < numberOfCars; i++) {
+            String[] carDetails = scanner.nextLine().split(" ");
+            String engineModel = carDetails[1];
+
+            List<Engine> engine = allEngines.stream().filter(e -> e.getEngineModel().equals(engineModel)).toList();
+            Car car = new Car(carDetails[0], engine.get(0));
+
+            if (carDetails.length > 2) {
+                if (Character.isDigit(carDetails[2].charAt(0))) {
+                    car.setCarWeight(carDetails[2]);
+                } else {
+                    car.setCarColor(carDetails[2]);
+                }
+            }
+
+            if (carDetails.length > 3) {
+                car.setCarColor(carDetails[3]);
+            }
+
+            allCars.add(car);
+
+        }
+
+
+        for (Car car : allCars) {
+            printResult(car);
+        }
+
+
+    }
+
+    private static void printResult(Car car) {
+        System.out.printf("%s:\n", car.getCarModel());
+        System.out.printf("%s:\n", car.getEngine().getEngineModel());
+        System.out.printf("Power: %d\n", car.getEngine().getEnginePower());
+        System.out.printf("Displacement: %s\n", car.getEngine().getEngineDisplacement());
+        System.out.printf("Efficiency: %s\n", car.getEngine().getEngineEfficiency());
+        System.out.printf("Weight: %s\n", car.getCarWeight());
+        System.out.printf("Color: %s\n", car.getCarColor());
+    }
+}
