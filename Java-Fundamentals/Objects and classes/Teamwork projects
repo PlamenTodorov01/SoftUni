@@ -1,0 +1,135 @@
+package ObjectsAndClassesMoreExercise;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+import java.util.stream.Collectors;
+
+public class TeamworkProjects_04 {
+    static class Team {
+        String teamName;
+        String teamCreator;
+        List<String> teamMembers;
+
+
+        Team(String teamName, String teamCreator) {
+            this.teamName = teamName;
+            this.teamCreator = teamCreator;
+        }
+
+        public String getTeamName() {
+            return teamName;
+        }
+
+        public String getTeamCreator() {
+            return teamCreator;
+        }
+
+        public List<String> getTeamMembers() {
+            if (this.teamMembers == null) {
+                return this.teamMembers = new ArrayList<>();
+            }
+            return teamMembers;
+        }
+
+        public void setTeamName(String teamName) {
+            this.teamName = teamName;
+        }
+
+        public void setTeamCreator(String teamCreator) {
+            this.teamCreator = teamCreator;
+        }
+
+        public void setTeamMembers(List<String> teamMembers) {
+            this.teamMembers = teamMembers;
+        }
+
+        public boolean checkIfTeamIsEmpty(Team team) {
+            boolean isEmpty = false;
+            if (this.teamMembers == null) {
+                isEmpty = true;
+            }
+            return isEmpty;
+        }
+
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        int numberOfTeams = Integer.parseInt(scanner.nextLine());
+        List<Team> allTeams = new ArrayList<>();
+
+        for (int i = 0; i < numberOfTeams; i++) {
+            String[] input = scanner.nextLine().split("-");
+            String teamCreator = input[0];
+            String teamName = input[1];
+
+            boolean isTeamExisting = false;
+            for (Team currentTeam : allTeams) {
+                if (currentTeam.getTeamName().equals(teamName)) {
+                    isTeamExisting = true;
+                    System.out.printf("Team %s was already created!\n", currentTeam.getTeamName());
+                    break;
+                }
+                if (currentTeam.getTeamCreator().equals(teamCreator)) {
+                    System.out.printf("%s cannot create another team!\n", currentTeam.getTeamCreator());
+                    break;
+                }
+            }
+            if (!isTeamExisting) {
+                Team team = new Team(teamName, teamCreator);
+                allTeams.add(team);
+                System.out.printf("Team %s has been created by %s!\n", team.getTeamName(), team.getTeamCreator());
+            }
+        }
+
+        String line = scanner.nextLine();
+
+        while (!line.equals("end of assignment")) {
+            String[] inputData = line.split("->");
+            String user = inputData[0];
+            String teamToJoin = inputData[1];
+            boolean isExistingTeam = false;
+            boolean isInATeam = false;
+
+            for (Team currentTeam : allTeams) {
+                if (currentTeam.getTeamName().equals(teamToJoin)) {        // Check if it is existing team
+                    isExistingTeam = true;
+                }
+
+                if (!currentTeam.checkIfTeamIsEmpty(currentTeam)) {        // Check if team is not empty
+                    if (currentTeam.getTeamMembers().contains(user)) {       // Check if user is already in the team
+                        isInATeam = true;
+                    }
+                }
+
+
+            }
+
+            if (!isInATeam && isExistingTeam) {
+                allTeams = allTeams.stream().map(team -> {
+                    if (team.getTeamName().equals(teamToJoin)) {
+                        team.getTeamMembers().add(user);
+                    }
+                    return team;
+                }).collect(Collectors.toList());
+
+            }
+            if (!isExistingTeam) {
+                System.out.printf("Team %s does not exist!\n", teamToJoin);
+            }
+            allTeams.forEach(team -> {
+                if (team.getTeamCreator().equals(user) || team.getTeamMembers().contains(user)) {
+                    System.out.printf("Member %s cannot join team %s!", user, team.getTeamName());
+                }
+            });
+
+            line = scanner.nextLine();
+        }
+
+
+        System.out.println();
+
+    }
+}
