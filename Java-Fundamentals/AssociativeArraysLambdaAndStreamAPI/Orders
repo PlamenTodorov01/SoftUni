@@ -1,0 +1,40 @@
+package AssociativeArraysLambdaAndStreamAPI_Exercise;
+
+import java.util.*;
+
+public class Orders_04 {
+    public static void main(String[] args) {
+    Scanner scanner = new Scanner(System.in);
+
+
+    String input = scanner.nextLine();
+    LinkedHashMap<String,List<Double>> products = new LinkedHashMap<>();
+
+    while (!input.equals("buy")) {
+        String[] tokens = input.split(" ");
+        String productName = tokens[0];
+        Double price = Double.parseDouble(tokens[1]);
+        Double quantity = Double.parseDouble(tokens[2]);
+
+        if (!products.containsKey(productName)) {
+            products.put(productName, new ArrayList<>());
+            products.get(productName).add(price);
+            products.get(productName).add(quantity);
+        } else {
+            products.get(productName).set(0, price);
+
+            double newQuantity = products.get(productName).get(1) + quantity;
+
+            products.get(productName).set(1, newQuantity);
+
+        }
+
+        input = scanner.nextLine();
+    }
+
+    products.entrySet()
+            .forEach(p -> System.out.printf("%s -> %.2f%n", p.getKey(), p.getValue().get(0) * p.getValue().get(1)));
+
+
+    }
+}
