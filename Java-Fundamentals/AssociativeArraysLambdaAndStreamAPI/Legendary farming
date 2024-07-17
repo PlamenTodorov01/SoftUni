@@ -1,0 +1,80 @@
+package AssociativeArraysLambdaAndStreamAPI_Exercise;
+
+import java.util.*;
+
+public class LegendaryFarming_03 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        Map<String,Integer> junkMaterials = new LinkedHashMap<>();
+        Map<String,Integer> keyMaterials = new LinkedHashMap<>();
+
+        keyMaterials.put("shards", 0);
+        keyMaterials.put("fragments", 0);
+        keyMaterials.put("motes", 0);
+
+        boolean isObtained = false;
+
+        while (!isObtained) {
+            String[] tokens = scanner.nextLine().split(" ");
+
+            for (int i = 0; i < tokens.length; i+=2) {
+                int newQuantity = Integer.parseInt(tokens[i]);
+                String material = tokens[i + 1].toLowerCase();
+
+
+                if (material.equals("shards") || material.equals("fragments") || material.equals("motes")) {
+
+                    keyMaterials.put(material, keyMaterials.get(material) + newQuantity);
+                    int materialCount = keyMaterials.get(material);
+                    if (keyMaterials.get(material) >= 250) {
+                        keyMaterials.put(material, materialCount - 250);
+
+                        if (material.equals("shards")) {
+                            System.out.println("Shadowmourne obtained!");
+                        } else if (material.equals("fragments")) {
+                            System.out.println("Valanyr obtained!");
+                        } else {
+                            System.out.println("Dragonwrath obtained!");
+                        }
+                        isObtained = true;
+                        break;
+                    }
+
+                } else {
+                    junkMaterials.putIfAbsent(material,0);
+                    int junkMaterialCount = junkMaterials.get(material);
+                    junkMaterials.put(material,junkMaterialCount + newQuantity);
+                }
+
+            }
+        }
+// Sort materials according to the document.
+//        keyMaterials.entrySet()
+//                .stream()
+//                .sorted((a, b) -> sortMaterials(a,b))
+//                .forEach(e -> System.out.printf("%s: %d%n", e.getKey(),e.getValue()));
+
+        for (Map.Entry<String, Integer> entry : keyMaterials.entrySet()) {
+            System.out.printf("%s: %d%n", entry.getKey(),entry.getValue());
+
+        }
+
+
+        for (Map.Entry<String, Integer> entry : junkMaterials.entrySet()) {
+            System.out.printf("%s: %d%n", entry.getKey(), entry.getValue());
+        }
+
+
+    }
+
+//    public static int sortMaterials (Map.Entry<String,Integer> first , Map.Entry <String,Integer> second) {
+//       int result = second.getValue().compareTo(first.getValue());
+//
+//       if (result == 0) {
+//           result = first.getKey().compareTo(second.getKey());
+//       }
+//       return result;
+//
+//    }
+}
