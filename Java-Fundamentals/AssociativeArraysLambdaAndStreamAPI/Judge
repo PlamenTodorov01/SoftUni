@@ -1,0 +1,60 @@
+package AssociativeArraysLambdaAndStreamAPI_MoreExercises;
+
+import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
+
+public class Judge_02 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        String input = scanner.nextLine();
+        Map<String, Integer> allParticipants = new HashMap<>();
+        LinkedHashMap<String, LinkedHashMap<String, Integer>> contests = new LinkedHashMap<>();
+
+        while (!input.equals("no more time")) {
+            String[] tokens = input.split(" -> ");
+            String username = tokens[0];
+            String contest = tokens[1];
+            int points = Integer.parseInt(tokens[2]);
+
+            if (!contests.containsKey(contest)) {
+                contests.put(contest, new LinkedHashMap<>());
+                contests.get(contest).put(username,0);
+            }
+            if (contests.get(contest).get(username) != null && contests.get(contest).get(username) < points) {
+                contests.get(contest).put(username,points);
+            }
+
+
+            if (!allParticipants.containsKey(username)) {
+                allParticipants.put(username, 0);
+            }
+            allParticipants.put(username, allParticipants.get(username) + points);
+
+
+            input = scanner.nextLine();
+        }
+
+
+        contests.entrySet().forEach(c -> {
+            System.out.printf("%s: %d participants\n", c.getKey(), c.getValue().size());
+            final int[] count = {0};
+            c.getValue().entrySet().stream().sorted((f, s) -> s.getValue() - f.getValue())
+                    .forEach(p -> {
+                        count[0] += 1;
+                        System.out.printf("%d. %s <::> %d\n", count[0], p.getKey(), p.getValue());
+                    });
+        });
+        System.out.println("Individual standings:");
+        final int[] count = {0};
+        allParticipants.entrySet().stream().sorted((f, s) -> s.getValue() - f.getValue())
+                .forEach(p -> {
+                    count[0] += 1;
+                    System.out.printf("%d. %s -> %d\n", count[0], p.getKey(), p.getValue());
+                });
+    }
+
+
+}
+
