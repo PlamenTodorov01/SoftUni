@@ -1,0 +1,91 @@
+package AssociativeArraysLambdaAndStreamAPI_Exercise;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+import java.util.concurrent.atomic.AtomicBoolean;
+
+public class Orders_04_WithClasses {
+    public static class Product {
+        String name;
+        double price;
+        int quantity;
+
+        public Product(String name, double price, int quantity) {
+            this.name = name;
+            this.price = price;
+            this.quantity = quantity;
+
+        }
+
+        public String getName() {
+            return this.name;
+        }
+
+        public double getPrice() {
+            return price;
+        }
+
+        public int getQuantity() {
+            return quantity;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public void setPrice(double price) {
+            this.price = price;
+        }
+
+        public void setQuantity(int quantity) {
+            this.quantity = quantity;
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        String line = scanner.nextLine();
+        List<Product> allProducts = new ArrayList<>();
+
+        while (!line.equals("buy")) {
+            String[] productData = line.split(" ");
+            String productName = productData[0];
+            double price = Double.parseDouble(productData[1]);
+            int quantity = Integer.parseInt(productData[2]);
+
+            boolean hasSameProduct = false;
+            //Second way to overwrite product.
+//            AtomicBoolean hasSameProduct = new AtomicBoolean(false);
+//
+//            allProducts.stream().forEach(p -> {
+//                if (p.getName().equals(productName)) {
+//                    p.setPrice(price);
+//                    p.setQuantity(p.getQuantity() + quantity);
+//                    hasSameProduct.set(true);
+//                }
+//            });
+
+            for (Product currentProduct : allProducts) {
+                if (currentProduct.getName().equals(productName)) {
+                    currentProduct.setPrice(price);
+                    currentProduct.setQuantity(currentProduct.getQuantity() + quantity);
+                    hasSameProduct = true;
+                    break;
+                }
+
+            }
+
+            if (!hasSameProduct) {
+                allProducts.add(new Product(productName, price, quantity));
+            }
+
+            line = scanner.nextLine();
+        }
+        allProducts.stream()
+                .forEach(p -> System.out.printf("%s -> %.2f%n", p.getName(), p.getPrice() * p.getQuantity()));
+
+
+    }
+}
