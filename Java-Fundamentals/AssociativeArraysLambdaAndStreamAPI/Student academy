@@ -1,0 +1,44 @@
+package AssociativeArraysLambdaAndStreamAPI_Exercise;
+
+import java.util.*;
+import java.util.stream.Collectors;
+
+public class StudentAcademy_07 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        int n = Integer.parseInt(scanner.nextLine());
+        Map<String, List<Double>> allStudents = new LinkedHashMap<>();
+
+        for (int i = 0; i < n; i++) {
+            String student = scanner.nextLine();
+            double grade = Double.parseDouble(scanner.nextLine());
+
+            if (!allStudents.containsKey(student)) {
+                allStudents.put(student,new ArrayList<>());
+            }
+            allStudents.get(student).add(grade);
+
+        }
+
+        //Sort and filter and print in order of appearance.
+        allStudents.entrySet()
+                .stream()
+                .filter(s -> s.getValue().stream().mapToDouble(Double::doubleValue).average().getAsDouble() >= 4.50)
+                .forEach(s -> System.out.printf("%s -> %.2f%n", s.getKey()
+                ,s.getValue().stream().mapToDouble(Double::doubleValue).average().getAsDouble()));
+
+        allStudents.entrySet()
+                .stream()
+                .filter(s -> s.getValue().stream().mapToDouble(Double::doubleValue).average().getAsDouble() >= 4.50)
+                .sorted((f,s) -> {
+                    double firstAverage = f.getValue().stream().mapToDouble(Double::doubleValue).average().getAsDouble();
+                    double secondAverage = s.getValue().stream().mapToDouble(Double::doubleValue).average().getAsDouble();
+
+                    return Double.compare(secondAverage,firstAverage);
+
+                }).forEach(s -> System.out.printf("%s -> %.2f%n", s.getKey(), s.getValue()
+                        .stream().mapToDouble(Double::doubleValue).average().getAsDouble()));
+
+    }
+}
