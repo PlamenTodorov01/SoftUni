@@ -1,0 +1,31 @@
+package TextProcessingLab;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class Substring {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+    //                 012345678901234567
+        String text = "eleabccabctionabcs";
+        String word = "abc";
+
+        int currentIndex = 0;
+        int nextWordIndex = text.indexOf(word, currentIndex);
+        List<String> substrings = new ArrayList<>();
+
+        while (nextWordIndex != -1) {
+            substrings.add(text.substring(currentIndex,nextWordIndex));
+            currentIndex = nextWordIndex + word.length();
+            nextWordIndex = text.indexOf(word,currentIndex);
+        }
+
+        substrings.add(text.substring(currentIndex));
+
+        String result = String.join("", substrings);
+        System.out.println(result);
+
+
+    }
+}
