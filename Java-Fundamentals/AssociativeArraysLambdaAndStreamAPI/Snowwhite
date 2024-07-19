@@ -1,0 +1,53 @@
+package AssociativeArraysLambdaAndStreamAPI_MoreExercises;
+
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Scanner;
+
+public class Snowwhite_04 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        Map<String, HashMap<String,Integer>> allDwarfs = new LinkedHashMap<>();
+
+        String input = scanner.nextLine();
+
+        while (!input.equals("Once upon a time")) {
+            String[] tokens = input.split(" <:> ");
+            String dwarfName = tokens[0];
+            String dwarfHatColor = tokens[1];
+            int dwarfPhysics = Integer.parseInt(tokens[2]);
+
+            if (allDwarfs.containsKey(dwarfName)) {
+                if (allDwarfs.get(dwarfName).containsKey(dwarfHatColor)) {
+                    if (allDwarfs.get(dwarfName).get(dwarfHatColor) < dwarfPhysics) {
+                        allDwarfs.get(dwarfName).put(dwarfHatColor,dwarfPhysics);
+                    }
+                } else {
+                    allDwarfs.get(dwarfName).put(dwarfHatColor,dwarfPhysics);
+                }
+
+            }
+            if (allDwarfs.get(dwarfName) == null) {
+                allDwarfs.put(dwarfName,new HashMap<>());
+                allDwarfs.get(dwarfName).put(dwarfHatColor,dwarfPhysics);
+            }
+
+            input = scanner.nextLine();
+        }
+
+        allDwarfs.entrySet().stream().sorted((d1,d2) -> {
+            int result = 0;
+            if (!d1.getValue().containsKey(d2.getValue().keySet().stream().toString())) {
+                result = Integer.compare(d2.getValue().values().stream().mapToInt(i -> i).sum(),
+                        d1.getValue().values().stream().mapToInt(i -> i).sum());
+            }
+
+            return result;
+        }).forEach(entry -> {
+            System.out.printf("(%s) %s <-> %d\n",entry.getValue().keySet().stream().toList().get(0), entry.getKey(),
+                    entry.getValue().values().stream().mapToInt(i -> i).sum());
+        });
+    }
+}
