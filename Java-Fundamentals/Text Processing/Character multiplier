@@ -1,0 +1,58 @@
+package TextProcessingExercise;
+
+import java.util.Scanner;
+
+public class CharacterMultiplier_02 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        String[] input = scanner.nextLine().split(" ");
+        String a = input[0];
+        String b = input[1];
+
+        System.out.println(getCharacterSum(a, b));
+
+    }
+
+    public static int getCharacterSum(String first, String second) {
+        int sum = 0;
+        int[] firstString = new int[first.length()];
+
+        for (int i = 0; i < first.length(); i++) {
+            firstString[i] = first.charAt(i);
+        }
+
+        int[] secondString = new int[second.length()];
+
+        for (int i = 0; i < second.length(); i++) {
+            secondString[i] = second.charAt(i);
+        }
+
+        if (firstString.length == secondString.length) {
+            for (int i = 0; i < firstString.length; i++) {
+                sum = sum + firstString[i] * secondString[i];
+            }
+        } else if (firstString.length > secondString.length) {
+
+            for (int i = 0; i < secondString.length; i++) {
+                sum = sum + firstString[i] * secondString[i];
+            }
+
+            for (int i = secondString.length; i < firstString.length; i++) {
+                sum += firstString[i];
+            }
+
+        } else {
+
+            for (int i = 0; i < firstString.length; i++) {
+                sum = sum + firstString[i] * secondString[i];
+            }
+
+            for (int i = firstString.length; i < secondString.length; i++) {
+                sum += secondString[i];
+            }
+        }
+
+        return sum;
+    }
+}
