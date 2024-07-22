@@ -1,0 +1,16 @@
+package TextProcessingExercise;
+
+import java.util.Scanner;
+
+public class ExtractFile_03 {
+    public static void main(String[] args) {
+
+        String[] input = new Scanner(System.in).nextLine().split("\\\\");
+
+        String[] data = input[input.length - 1].split("\\.");
+
+        System.out.println("File name: " + data[0]);
+        System.out.println("File extension: " + data[1]);
+        
+    }
+}
