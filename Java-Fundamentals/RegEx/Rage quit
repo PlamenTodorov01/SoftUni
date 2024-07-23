@@ -1,0 +1,67 @@
+package RegExMoreExercises;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class RageQuit_02 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        String input = scanner.nextLine();
+        String text = input.toUpperCase();
+
+        List<String> uniqueSymbolsList = new ArrayList<>();
+
+        String regex = "[^0-9]";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(text);
+
+        while (matcher.find()) {
+            if (!uniqueSymbolsList.contains(matcher.group())) {
+                uniqueSymbolsList.add(matcher.group());
+            }
+        }
+        System.out.println("Unique symbols used: " + uniqueSymbolsList.size());
+        int repeatedCount = 0;
+        StringBuilder textToRepeat = new StringBuilder();
+        StringBuilder output = new StringBuilder();
+        boolean isDoubleDigit = false;
+
+        for (int i = 0; i < text.length(); i++) {
+            char currentChar = text.charAt(i);
+
+            if (isDoubleDigit) {
+                isDoubleDigit = false;
+                continue;
+            }
+            if (Character.isDigit(currentChar)) {
+                int currentCharAsInt = Integer.parseInt(currentChar + "");
+                repeatedCount = Integer.parseInt(currentChar + "");
+                if ((i + 1) < text.length()) {
+                    if (Character.isDigit(text.charAt(i + 1))) {
+                        isDoubleDigit = true;
+                        int nextCharAsInt = Integer.parseInt(text.charAt(i + 1) + "");
+                        if (currentCharAsInt == 1) {
+                            repeatedCount = 10 + nextCharAsInt;
+                        } else if (currentCharAsInt == 2) {
+                            repeatedCount = 20 + nextCharAsInt;
+                        }
+                    }
+                }
+                if (repeatedCount != 0) {
+                    output.append(String.valueOf(textToRepeat).repeat(Math.max(0, repeatedCount)));
+                    repeatedCount = 0;
+                    textToRepeat = new StringBuilder();
+                }
+            } else {
+                textToRepeat.append(currentChar);
+            }
+
+        }
+        System.out.println(output);
+
+    }
+}
