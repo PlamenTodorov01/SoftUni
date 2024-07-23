@@ -1,0 +1,47 @@
+package RegExMoreExercises;
+
+import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class WinningTicket_01 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        String input = scanner.nextLine().replaceAll("\\s+","");
+        String[] tickets = input.split(",");
+
+        for (int i = 0; i < tickets.length; i++) {
+           tickets[i] = tickets[i].trim();
+            if (tickets[i].length() != 20) {
+                System.out.println("invalid ticket");
+            } else {
+                String currentTicket = tickets[i];
+                String ticketFirstPart = currentTicket.substring(0, 10);
+                String ticketSecondPart = currentTicket.substring(10, 20);
+                String regex = "[@#\\$^]{6,}";
+
+                Pattern pattern = Pattern.compile(regex);
+                Matcher firstMatcher = pattern.matcher(ticketFirstPart);
+                Matcher secondMatcher = pattern.matcher(ticketSecondPart);
+
+                if (firstMatcher.find() && secondMatcher.find()) {
+                    String firstMatch = firstMatcher.group();
+                    String secondMatch = firstMatcher.group();
+                    if (firstMatch.equals(secondMatch)) {
+                        if (firstMatch.length() < 10 && firstMatch.length() >= 6) {
+                            System.out.printf("ticket \"%s\" - %d%c\n", currentTicket, firstMatch.length(), firstMatch.charAt(0));
+                        } else if (firstMatch.length() == 10) {
+                            System.out.printf("ticket \"%s\" - %d%c Jackpot!\n", currentTicket, firstMatch.length(), firstMatch.charAt(0));
+                        }
+
+                    }
+
+                } else {
+                    System.out.printf("ticket \"%s\" - no match\n",currentTicket);
+                }
+            }
+        }
+
+    }
+}
