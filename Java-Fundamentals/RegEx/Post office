@@ -1,0 +1,64 @@
+package RegExMoreExercises;
+
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class PostOffice_03 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        String[] input = scanner.nextLine().split("\\|");
+
+        String firstPart = input[0];
+        String secondPart = input[1];
+        String thirdPart = input[2];
+
+        String firstRegex = "([#\\$%|&])[A-Z]+\\1";
+
+        Pattern firstPattern = Pattern.compile(firstRegex);
+        Matcher firstMatcher = firstPattern.matcher(firstPart);
+        String capitalLetters = "";
+
+        if (firstMatcher.find()) {
+            capitalLetters = firstMatcher.group();
+        }
+        capitalLetters = capitalLetters.substring(1,capitalLetters.length() - 1);
+
+        String secondRegex = "[\\d]{2}:[\\d]{2}";
+        Pattern secondPattern = Pattern.compile(secondRegex);
+        Matcher secondMatcher = secondPattern.matcher(secondPart);
+        List<String> wordsInfo = new ArrayList<>();
+
+        String[] words = thirdPart.split(" ");
+
+        while (secondMatcher.find()) {
+            wordsInfo.add(secondMatcher.group());
+        }
+
+        boolean wordIsFound = false;
+
+            for (char symbol : capitalLetters.toCharArray()) {
+                wordIsFound = false;
+                for (String wordInfo : wordsInfo) {
+                    String[] info = wordInfo.split(":");
+                    char startingLetter = (char)Integer.parseInt(info[0]);
+                    int wordLength = Integer.parseInt(info[1]) + 1;
+
+                if (startingLetter == symbol) {
+                    for (String word : words) {
+                        if ((word.length() == (wordLength)) && (word.charAt(0) == startingLetter)) {
+                            System.out.println(word);
+                            wordIsFound = true;
+                            break;
+                        }
+                    }
+                }
+                if (wordIsFound) {
+                    break;
+                }
+            }
+
+        }
+    }
+}
