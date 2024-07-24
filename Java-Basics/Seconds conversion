@@ -1,0 +1,35 @@
+import java.util.Scanner;
+public class Competition {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int firstCompetition = Integer.parseInt(scanner.nextLine());
+        int secondCompetition = scanner.nextInt();
+        int thirdCompetition = scanner.nextInt();
+        int allSeconds = firstCompetition + secondCompetition + thirdCompetition;
+
+        int sec = 0;
+
+        if ( allSeconds < 60) {
+            sec = allSeconds;
+            if (sec < 10) {
+                System.out.printf("0:0%d",sec);
+            } else {
+                System.out.printf("0:%d",sec);
+            }
+        } else if (allSeconds < 120) {
+            sec = allSeconds - 60;
+            if (sec < 10) {
+                System.out.printf("1:0%d", sec);
+            } else {
+                System.out.printf("1:%d", sec);
+            }
+        } else {
+            sec = allSeconds - 120;
+            if (sec < 10) {
+                System.out.printf("2:0%d", sec);
+            } else {
+                System.out.printf("2:%d", sec);
+            }
+    }
+    }
+    }
