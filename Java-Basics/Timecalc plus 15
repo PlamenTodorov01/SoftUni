@@ -1,0 +1,24 @@
+import java.util.Scanner;
+
+public class TimePlus15 {
+    public static void main(String[] args) {
+
+        Scanner scanner = new Scanner(System.in);
+        int hours = Integer.parseInt(scanner.nextLine());
+        int minutes = Integer.parseInt(scanner.nextLine());
+
+        int result = hours * 60 + minutes + 15;
+
+        int currentHour = result / 60;
+        int currentMinutes = result - currentHour * 60;
+
+        if (currentHour >= 24) {
+            currentHour = currentHour - 24;
+        }
+        if (currentMinutes < 10) {
+            System.out.printf("%d:0%d", currentHour, currentMinutes);
+        } else {
+            System.out.printf("%d:%d", currentHour,currentMinutes);
+        }
+    }
+}
