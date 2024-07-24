@@ -1,0 +1,64 @@
+package RegExMoreExercises;
+
+import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class EmojiDetector {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        String input = scanner.nextLine();
+        String emojiRegex = "([:*])\\1[A-Z][a-z]{2,}\\1\\1";
+        Pattern pattern = Pattern.compile(emojiRegex);
+        Matcher matcher = pattern.matcher(input);
+        List<String> validEmojis = new ArrayList<>();
+        List<String> coolEmojis = new ArrayList<>();
+
+        String numbersRegex = "\\d";
+        Pattern pattern1 = Pattern.compile(numbersRegex);
+        Matcher matcher1 = pattern1.matcher(input);
+//        BigInteger coolThresholdSum = BigInteger.valueOf(0);
+        int coolThresholdSum = 1;
+        boolean isFound = false;
+
+        while (matcher1.find()) {
+            isFound = true;
+            coolThresholdSum *= Integer.parseInt(matcher1.group());
+
+        }
+        if (!isFound) {
+            coolThresholdSum = 0;
+        }
+        System.out.println("Cool threshold: " + coolThresholdSum);
+
+        while (matcher.find()) {
+            validEmojis.add(matcher.group());
+        }
+        int emojiCoolness = 0;
+        for (String emoji : validEmojis) {
+
+            for (char symbol : emoji.toCharArray()) {
+                emojiCoolness += symbol;
+            }
+            if (emoji.contains("*")) {
+                emojiCoolness -= 168;
+            } else if (emoji.contains(":")) {
+                emojiCoolness -= 232;
+            }
+
+            if (emojiCoolness >= coolThresholdSum) {
+                coolEmojis.add(emoji);
+            }
+            emojiCoolness = 0;
+        }
+        System.out.printf("%d emojis found in the text. The cool ones are:\n",validEmojis.size());
+
+        coolEmojis.forEach(System.out::println);
+
+    }
+}
