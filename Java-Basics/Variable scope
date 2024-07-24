@@ -1,0 +1,15 @@
+public class variableScope {
+    public static void main(String[] args) {
+        int myMoney = 500;
+        int payDate = 07;
+        int todayDate = 10;
+
+        if (todayDate >= payDate) {
+            int salary = 5000;
+            myMoney = myMoney + salary;
+
+        }
+        System.out.println(myMoney);
+
+    }
+}
