@@ -1,0 +1,22 @@
+import java.util.Scanner;
+
+public class Volleyball {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        String year = scanner.nextLine();
+        int holidays = Integer.parseInt(scanner.nextLine());
+        int weekendsHome = Integer.parseInt(scanner.nextLine());
+
+        int sofiaWeekends = 48 - weekendsHome;
+        double playSofia = (sofiaWeekends * 3.0 / 4) + (holidays * 2.0/3);
+        double playTotal = playSofia + weekendsHome;
+
+        if ("leap".equals(year)) {
+            playTotal = (playTotal + playTotal * 0.15);
+            System.out.println(Math.floor(playTotal));
+        } else if ("normal".equals(year)) {
+            System.out.println(Math.floor(playTotal));
+        }
+    }
+}
