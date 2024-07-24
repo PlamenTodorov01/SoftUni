@@ -1,0 +1,20 @@
+import java.util.Locale;
+import java.util.Scanner;
+
+public class sameWords {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        String wordFirst = scanner.nextLine();
+        String wordSecond = scanner.nextLine();
+
+        String newWord = wordFirst.toLowerCase();
+        String newWord2 = wordSecond.toLowerCase();
+
+        if (newWord.equals(newWord2)) {
+            System.out.println("yes");
+        } else {
+            System.out.println("no");
+        }
+    }
+}
