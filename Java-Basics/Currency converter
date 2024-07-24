@@ -1,0 +1,39 @@
+import java.util.Scanner;
+
+public class CurrencyConvertor {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        double amount = Double.parseDouble(scanner.nextLine());
+        String currency1 = scanner.nextLine();
+        String currency2 = scanner.nextLine();
+
+        double BGN = 1;
+        double USD = 1.79549;
+        double EUR = 1.95583;
+        double GBP = 2.53405;
+
+        double result = 0;
+
+        if (currency1.equals("USD")) {
+            result = amount * USD;
+        } else if (currency1.equals("EUR")) {
+            result = amount * EUR;
+        } else if (currency1.equals("GBP")) {
+            result = amount * GBP;
+        } else if (currency1.equals("BGN")) {
+            result = amount * BGN;
+        }
+
+        if (currency2.equals("USD")) {
+            result = result / USD;
+        } else if (currency2.equals("EUR")) {
+            result = result / EUR;
+        } else if (currency2.equals("GBP")) {
+            result = result / GBP;
+        } else if (currency2.equals("BGN")) {
+            result = result / BGN;
+        }
+        System.out.printf("%.2f %s", result, currency2);
+    }
+}
