@@ -1,0 +1,16 @@
+import java.util.Scanner;
+
+public class EducationRoom {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        double length = Double.parseDouble(scanner.nextLine());
+        double width = Double.parseDouble(scanner.nextLine());
+
+        double rows = (length * 100) / 120;
+        double desks = ((width*100) - 100) / 70;
+        double numberSeats = (Math.floor(rows) * Math.floor(desks)) - 3;
+
+        System.out.printf("%.0f", numberSeats);
+    }
+}
