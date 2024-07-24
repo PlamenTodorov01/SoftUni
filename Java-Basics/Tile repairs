@@ -1,0 +1,24 @@
+
+import java.util.Scanner;
+
+public class TileRepairs {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        int lengthSide = Integer.parseInt(scanner.nextLine());
+        double tileWidth = Double.parseDouble(scanner.nextLine());
+        double tileLength = Double.parseDouble(scanner.nextLine());
+
+
+        int widthBench = Integer.parseInt(scanner.nextLine());
+        int lengthBench = Integer.parseInt(scanner.nextLine());
+
+
+        int areaToCover = (lengthSide * lengthSide) - (widthBench * lengthBench);
+        double tiles = areaToCover / (tileLength * tileWidth);
+        double time = tiles * 0.2;
+
+        System.out.println(tiles);
+        System.out.println(time);
+    }
+}
