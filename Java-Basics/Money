@@ -1,0 +1,22 @@
+import java.util.Scanner;
+
+public class Money {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        int bitcoin = Integer.parseInt(scanner.nextLine());
+
+        double yuans = Double.parseDouble(scanner.nextLine());
+        double commission = Double.parseDouble(scanner.nextLine()) / 100;
+
+        double iuanBGN = yuans * 0.15 * 1.76;
+
+        double totalMoneyEuro = ((bitcoin*1168) + iuanBGN) / 1.95;
+
+        double commissionMoney = totalMoneyEuro * commission;
+
+        double result = totalMoneyEuro - commissionMoney;
+        System.out.println(result);
+
+    }
+}
