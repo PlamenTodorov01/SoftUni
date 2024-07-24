@@ -1,0 +1,22 @@
+import java.util.Scanner;
+
+public class dailyIncome {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        int workingDays = Integer.parseInt(scanner.nextLine());
+        double dailyIncome = Double.parseDouble(scanner.nextLine());
+        double courseUSD = Double.parseDouble(scanner.nextLine());
+
+        double monthlySalary = workingDays * dailyIncome;
+        double annualSalary = (monthlySalary * 12 + 2.5 * monthlySalary) * courseUSD;
+
+        double taxes = annualSalary / 4;
+        double pureSalary = annualSalary - taxes;
+        double averageDailyIncome = pureSalary / 365;
+
+        System.out.printf("%.2f", averageDailyIncome);
+
+
+    }
+}
