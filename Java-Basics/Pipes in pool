@@ -1,0 +1,26 @@
+import java.util.Scanner;
+
+public class PipesInPool {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        int poolVolume = Integer.parseInt(scanner.nextLine());
+        int pipe1Rate = Integer.parseInt(scanner.nextLine());
+        int pipe2Rate = Integer.parseInt(scanner.nextLine());
+        double hours = Double.parseDouble(scanner.nextLine());
+
+        double water = hours * pipe1Rate +  hours *pipe2Rate;
+
+        if (water <= poolVolume) {
+            System.out.printf("The pool is %.0f%% full. Pipe 1: %.0f%%. Pipe 2: %.0f%%.",
+                    Math.floor (water / poolVolume * 100.0),
+                    Math.floor(pipe1Rate * hours / water * 100.0),
+                    Math.floor(pipe2Rate * hours / water * 100.0));
+
+        } else {
+
+            System.out.printf("For %f hours the pool overflows with %f liters", hours, water - poolVolume);
+
+        }
+    }
+}
