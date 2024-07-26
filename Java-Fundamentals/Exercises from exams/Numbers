@@ -1,0 +1,91 @@
+package MidExamPractice;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Scanner;
+
+public class Numbers_03 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        List<Integer> numbers = getListOfNumbers(scanner);
+        List<Integer> aboveAverageNumbers = new ArrayList<>();
+        List<Integer> topNumbers = new ArrayList<>();
+
+        double sum = 0;
+
+        //get sum of all Integers
+        for (int i = 0; i < numbers.size(); i++) {
+            sum += numbers.get(i);
+
+        }
+
+        double averageValue = sum / numbers.size();
+
+
+        // Collect all Integers above average value.
+        for (int i = 0; i < numbers.size(); i++) {
+            int number = numbers.get(i);
+
+            if (number > averageValue) {
+                aboveAverageNumbers.add(number);
+            }
+        }
+
+        int topNumbersCount = 0;
+            //Iterate through the list to find top numbers
+        for (int i = 0; i < aboveAverageNumbers.size(); i++) {
+
+            if (topNumbersCount == 5) {
+                break;
+            }
+            boolean isTopNumber = true;
+
+            int currentNumber = aboveAverageNumbers.get(i);
+
+            for (int j = i + 1; j < aboveAverageNumbers.size(); j++) {
+
+                int nextNumber = aboveAverageNumbers.get(j);
+
+                if (currentNumber < nextNumber) {
+                    isTopNumber = false;
+                    break;
+                }
+
+            }
+            if (isTopNumber) {
+                topNumbers.add(currentNumber);
+                aboveAverageNumbers.remove(i);
+                i = -1;
+                topNumbersCount++;
+            }
+
+        }
+        if (topNumbersCount == 0) {
+            System.out.println("No");
+        } else {
+
+            for (Integer topNumber : topNumbers) {
+                System.out.print(topNumber + " ");
+
+            }
+        }
+
+    }
+
+    private static List<Integer> getListOfNumbers(Scanner scanner) {
+        String line = scanner.nextLine();
+        String[] numbersAsString = line.split(" ");
+        List<Integer> numbers = new ArrayList<>();
+
+        for (int i = 0; i < numbersAsString.length; i++) {
+            int number = Integer.parseInt(numbersAsString[i]);
+            numbers.add(number);
+
+        }
+        return numbers;
+    }
+
+
+}
