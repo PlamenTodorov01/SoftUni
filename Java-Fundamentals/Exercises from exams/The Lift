@@ -1,0 +1,30 @@
+package MidExamPractice;
+
+import java.util.Scanner;
+
+public class TheLift_02 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner (System.in);
+
+        int peopleWaiting = Integer.parseInt(scanner.nextLine());
+        String input = scanner.nextLine();
+        String[] liftStateString = input.split(" ");
+        int[] liftState = new int[liftStateString.length];
+
+        for (int i = 0; i < liftStateString.length; i++) {
+            liftState[i] = Integer.parseInt(liftStateString[i]);
+        }
+
+        for (int i = 0; i < liftState.length; i++) {
+
+            if (liftState[i] < 4) {
+                if (peopleWaiting >= 4) {
+                    peopleWaiting -= 4 - liftState[i];
+                    liftState[i] = 4;
+                } else {
+                    liftState[i] += peopleWaiting;
+                }
+            }
+        }
+    }
+}
