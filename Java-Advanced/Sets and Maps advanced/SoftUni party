@@ -1,0 +1,54 @@
+package SetsAndMapsAdvanced_Lab;
+
+import java.util.Scanner;
+import java.util.TreeSet;
+
+public class SoftUniParty_02 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        String input = scanner.nextLine();
+        TreeSet<String> vipReservations = new TreeSet<>();
+        TreeSet<String> regularReservations = new TreeSet<>();
+
+        while (!input.equals("PARTY")) {
+            String reservation = input;
+            if (checkIfReservationIsVIP(reservation)) {
+                vipReservations.add(reservation);
+            } else {
+                regularReservations.add(reservation);
+            }
+
+            input = scanner.nextLine();
+        }
+        input = scanner.nextLine();
+
+        while (!input.equals("END")) {
+            String reservation = input;
+            if (checkIfReservationIsVIP(reservation)) {
+                vipReservations.remove(reservation);
+            } else {
+                regularReservations.remove(reservation);
+            }
+
+            input = scanner.nextLine();
+        }
+
+        System.out.println(vipReservations.size() + regularReservations.size());
+
+        printReservations(vipReservations);
+
+        printReservations(regularReservations);
+
+    }
+
+    private static void printReservations(TreeSet<String> reservations) {
+        for (String reservation : reservations) {
+            System.out.println(reservation);
+        }
+    }
+
+    private static boolean checkIfReservationIsVIP(String reservation) {
+        return Character.isDigit(reservation.charAt(0));
+    }
+}
