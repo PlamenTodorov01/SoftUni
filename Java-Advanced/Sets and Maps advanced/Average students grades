@@ -1,0 +1,33 @@
+package SetsAndMapsAdvanced_Lab;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+import java.util.TreeMap;
+
+public class AverageStudentsGrades_05 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        TreeMap<String, ArrayList<Double>> studentRecord = new TreeMap<>();
+
+        int n = Integer.parseInt(scanner.nextLine());
+
+        for (int i = 0; i < n; i++) {
+            String[] input = scanner.nextLine().split(" ");
+            String studentName = input[0];
+            double currentGrade = Double.parseDouble(input[1]);
+
+            studentRecord.putIfAbsent(studentName,new ArrayList<>());
+            ArrayList<Double> grades = studentRecord.get(studentName);
+            grades.add(currentGrade);
+        }
+
+        studentRecord.entrySet().forEach(student -> {
+            System.out.printf("%s -> ",student.getKey());
+            student.getValue().forEach(grade -> System.out.printf("%.2f ",grade));
+           double avg = student.getValue().stream().mapToDouble(g -> g).average().getAsDouble();
+            System.out.printf("(avg: %.2f)", avg);
+            System.out.println();
+        });
+    }
+}
