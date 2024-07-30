@@ -1,0 +1,39 @@
+package SetsAndMapsAdvanced_Lab;
+
+import java.util.LinkedHashMap;
+import java.util.Scanner;
+import java.util.TreeMap;
+
+public class ProductShop_06 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        String input = scanner.nextLine();
+        TreeMap<String, LinkedHashMap<String, Double>> foodShops = new TreeMap<>();
+
+        while (!input.equals("Revision")) {
+            String[] tokens = input.split(", ");
+            String shop = tokens[0];
+            String product = tokens[1];
+            double price = Double.parseDouble(tokens[2]);
+
+            if (!foodShops.containsKey(shop)) {
+                foodShops.put(shop, new LinkedHashMap<>());
+            }
+
+            LinkedHashMap<String, Double> products = foodShops.get(shop);
+
+            if (!products.containsKey(product)) {
+                products.put(product,price);
+            }
+
+            input = scanner.nextLine();
+        }
+
+        for (var shop : foodShops.entrySet()) {
+            System.out.println(shop.getKey() + "->");
+            shop.getValue().forEach((key, value) -> System.out.printf("Product: %s, Price: %.1f\n", key, value));
+        }
+
+    }
+}
