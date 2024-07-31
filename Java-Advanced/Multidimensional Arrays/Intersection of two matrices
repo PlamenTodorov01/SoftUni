@@ -1,0 +1,57 @@
+package MultidimensionalArraysLab;
+
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class IntersectionOfTwoMatrices_03 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        int inputMatrixRows = Integer.parseInt(scanner.nextLine());
+        int inputMatrixCols = Integer.parseInt(scanner.nextLine());
+
+        char[][] firstMatrix = readMatrix(inputMatrixRows,inputMatrixCols,scanner);
+        char[][] secondMatrix = readMatrix(inputMatrixRows,inputMatrixCols,scanner);
+        char[][] outputMatrix = new char[inputMatrixRows][inputMatrixCols];
+
+        for (int row = 0; row < firstMatrix.length; row++) {
+            char[] firstArray = firstMatrix[row];
+            char[] secondArray = secondMatrix[row];
+            char[] outputArray = outputMatrix[row];
+
+            for (int col = 0; col < firstArray.length; col++) {
+                if (firstArray[col] == secondArray[col]) {
+                    outputArray[col] = firstArray[col];
+                } else {
+                    outputArray[col] = '*';
+                }
+            }
+            outputMatrix[row] = outputArray;
+        }
+
+        for (char[] array : outputMatrix) {
+            for (char symbol : array) {
+                System.out.print(symbol + " ");
+            }
+            System.out.println();
+        }
+
+
+    }
+
+    private static char[][] readMatrix(int rows, int cols, Scanner scanner) {
+        char[][] matrix = new char[rows][cols];
+
+        for (int row = 0; row < matrix.length; row++) {
+            char[] arr = new char[cols];
+
+            for (int element = 0; element < cols; element++) {
+                char symbol = scanner.next().charAt(0);
+                arr[element] = symbol;
+            }
+            matrix[row] = arr;
+        }
+        return matrix;
+    }
+
+}
