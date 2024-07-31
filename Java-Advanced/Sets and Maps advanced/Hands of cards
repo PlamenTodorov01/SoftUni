@@ -1,0 +1,84 @@
+package SetsAndMapsAdvanced_Exercise;
+
+import java.util.*;
+
+public class HandsOfCards_07 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        String input = scanner.nextLine();
+        LinkedHashMap<String, Integer> players = new LinkedHashMap<>();
+
+        while (!input.equals("JOKER")) {
+            String[] tokens = input.split(": ");
+            String name = tokens[0];
+            String[] cardsInHand = tokens[1].split(", ");
+            HashSet<String> cards = new HashSet<>(Arrays.asList(cardsInHand));
+
+            int cardsValue = calculateCardsValue(cards);
+            if (players.containsKey(name)) {
+                players.put(name, players.get(name) + cardsValue);
+            } else {
+                players.put(name, cardsValue);
+            }
+
+            input = scanner.nextLine();
+        }
+
+        for (Map.Entry<String, Integer> player : players.entrySet()) {
+            System.out.println(player.getKey() + ": " + player.getValue());
+        }
+
+    }
+
+    private static int calculateCardsValue(HashSet<String> cards) {
+        int totalCardValue = 0;
+
+        for (String card : cards) {
+            int currentCardValue = 0;
+            int cardPowerAsInt = 0;
+            char cardType = ' ';
+
+            if (card.length() == 2) {
+                char cardPower = card.charAt(0);
+                cardType = card.charAt(1);
+
+                if (Character.isDigit(cardPower)) {
+                    cardPowerAsInt = Character.getNumericValue(cardPower);
+
+                } else {
+                    if (cardPower == 'J') {
+                        cardPowerAsInt = 11;
+                    } else if (cardPower == 'Q') {
+                        cardPowerAsInt = 12;
+                    } else if (cardPower == 'K') {
+                        cardPowerAsInt = 13;
+                    } else if (cardPower == 'A') {
+                        cardPowerAsInt = 14;
+                    }
+                }
+
+            } else {
+                cardPowerAsInt = Integer.parseInt(card.substring(0,2));
+                cardType = card.charAt(2);
+            }
+            currentCardValue = cardPowerAsInt * getMultiplierFromCardType(cardType);
+            totalCardValue += currentCardValue;
+
+        }
+
+
+        return totalCardValue;
+    }
+
+    private static int getMultiplierFromCardType(char cardType) {
+        int multiplier = 0;
+        switch (cardType) {
+            case 'S' -> multiplier = 4;
+            case 'H' -> multiplier = 3;
+            case 'D' -> multiplier = 2;
+            case 'C' -> multiplier = 1;
+        }
+        return multiplier;
+    }
+}
