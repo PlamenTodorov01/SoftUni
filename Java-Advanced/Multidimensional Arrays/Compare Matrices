@@ -1,0 +1,58 @@
+package MultidimensionalArraysLab;
+
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class CompareMatrices_01 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        int[][] firstMatrix = readMatrix(scanner);
+        int[][] secondMatrix = readMatrix(scanner);
+
+        if (compareMatrices(firstMatrix,secondMatrix)) {
+            System.out.println("equal");
+        } else {
+            System.out.println("not equal");
+        }
+    }
+
+    public static int[][] readMatrix(Scanner scanner) {
+        int[] matrixDimensions = Arrays.stream(scanner.nextLine().split("\\s+"))
+                .mapToInt(Integer::parseInt).toArray();
+
+        int matrixRows = matrixDimensions[0];
+        int matrixColumns = matrixDimensions[1];
+
+        int[][] matrix = new int[matrixRows][matrixColumns];
+
+        for (int row = 0; row < matrixRows; row++) {
+            int[] array = Arrays.stream(scanner.nextLine().split("\\s+"))
+                    .mapToInt(Integer::parseInt)
+                    .toArray();
+            matrix[row] = array;
+        }
+        return matrix;
+
+    }
+
+    private static boolean compareMatrices(int[][] firstMatrix, int[][] secondMatrix) {
+
+        if (firstMatrix.length != secondMatrix.length) {
+           return false;
+        } else {
+            for (int row = 0; row < firstMatrix.length; row++) {
+                if (firstMatrix[row].length != secondMatrix[row].length) {
+                    return false;
+                }
+                for (int cols = 0; cols < firstMatrix[row].length; cols++) {
+                    if (firstMatrix[row][cols] != secondMatrix[row][cols]) {
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
+
+    }
+}
