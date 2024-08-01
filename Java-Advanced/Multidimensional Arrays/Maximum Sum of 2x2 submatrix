@@ -1,0 +1,66 @@
+package MultidimensionalArraysLab;
+
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class MaximumSumOf2x2Submatrix_05 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        int[][] matrix = readMatrix(scanner);
+        int[][] subMatrix = new int[2][2];
+        int maxSum = Integer.MIN_VALUE;
+
+        for (int row = 0; row < matrix.length - 1; row++) {
+            int[] currentArr = matrix[row];
+            int[] nextArr = matrix[row + 1];
+
+            for (int col = 0; col < currentArr.length - 1; col++) {
+                int topLeft = currentArr[col];
+                int topRight = currentArr[col + 1];
+                int bottomLeft = nextArr[col];
+                int bottomRight = nextArr[col + 1];
+
+                int sum = topLeft + topRight + bottomLeft + bottomRight;
+                if (sum > maxSum) {
+                    maxSum = sum;
+                    subMatrix[0][0] = topLeft;
+                    subMatrix[0][1] = topRight;
+                    subMatrix[1][0] = bottomLeft;
+                    subMatrix[1][1] = bottomRight;
+                }
+            }
+        }
+
+        printMatrix(subMatrix);
+        System.out.println(maxSum);
+
+
+    }
+
+    private static int[][] readMatrix(Scanner scanner) {
+        int[] matrixDimensions = Arrays.stream(scanner.nextLine().split(", "))
+                .mapToInt(Integer::parseInt).toArray();
+        int rows = matrixDimensions[0];
+        int cols = matrixDimensions[1];
+
+        int[][] matrix = new int[rows][cols];
+
+        for (int r = 0; r < rows; r++) {
+            int[] array = Arrays.stream(scanner.nextLine().split(", "))
+                    .mapToInt(Integer::parseInt).toArray();
+            matrix[r] = array;
+        }
+
+        return matrix;
+    }
+
+    public static void printMatrix(int[][] matrix) {
+        for (int[] array : matrix) {
+            for (int number : array) {
+                System.out.print(number + " ");
+            }
+            System.out.println();
+        }
+    }
+}
