@@ -1,0 +1,68 @@
+package MultidimensionalArraysLab;
+
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class WrongMeasurements_08 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner (System.in);
+
+        int matrixRows = Integer.parseInt(scanner.nextLine());
+        int[][] matrix = new int[matrixRows][];
+        for (int r = 0; r < matrixRows; r++) {
+            int[] array = readArray(scanner);
+            matrix[r] = array;
+        }
+
+        int[] wrongValueCoordinates = readArray(scanner);
+        int wrongValue = matrix[wrongValueCoordinates[0]][wrongValueCoordinates[1]];
+
+        for (int row = 0; row < matrixRows; row++) {
+            int[] arr = matrix[row];
+            for (int col = 0; col < arr.length; col++) {
+                int number = arr[col];
+                int newNumber = 0;
+                if (number == wrongValue) {
+//                    int left = arr[col - 1];
+//                    int right = arr[col + 1];
+//                    int top = matrix[row-1][col];
+//                    int bottom = matrix[row+1][col];
+
+                    if (row == 0 && col == 0) {                                              // 1st case
+                        newNumber = arr[col + 1] + matrix[row+1][col];
+                    } else if (row == 0 && col > 0 && col < arr.length - 1) {               // 2nd case
+                        newNumber = arr[col - 1] + arr[col + 1] + matrix[row+1][col];
+                    } else if (row == 0 && col == arr.length - 1) {                         // 3rd case
+                        newNumber = arr[col - 1] + matrix[row+1][col];
+                    } else if (row > 0 && row < matrixRows - 1 && col == 0) {              // 4th case
+                        newNumber = matrix[row-1][col] + arr[col + 1] + matrix[row+1][col];
+                    } else if (row > 0 && row < matrixRows - 1 && col > 0 && col < arr.length - 1) {    // 5th case
+                        newNumber = arr[col - 1] + arr[col + 1] + matrix[row-1][col] + matrix[row+1][col];
+                    } else if (row > 0 && row < matrixRows - 1 && col == arr.length - 1) {      // 6th case
+                        newNumber = arr[col - 1] + matrix[row-1][col] + matrix[row+1][col];
+                    } else if (row == matrixRows - 1 && col == 0) {                         // 7th case
+                        newNumber = matrix[row-1][col] + arr[col + 1];
+                    } else if (row == matrixRows - 1 && col > 0 && col < arr.length - 1){    // 8th case
+                        newNumber = arr[col - 1] + matrix[row-1][col] + arr[col + 1];
+                    }else if (row == matrixRows - 1 && col ==  arr.length - 1) {            // 9th case
+                        newNumber = arr[col - 1] + matrix[row-1][col];
+                    }
+                    matrix[row][col] = newNumber;
+
+                }
+            }
+        }
+
+        for (int[] arr : matrix) {
+            for (int element : arr) {
+                System.out.print(element + " ");
+            }
+            System.out.println();
+        }
+    }
+
+    private static int[] readArray(Scanner scanner) {
+        return Arrays.stream(scanner.nextLine().split(" "))
+                .mapToInt(Integer::parseInt).toArray();
+    }
+}
