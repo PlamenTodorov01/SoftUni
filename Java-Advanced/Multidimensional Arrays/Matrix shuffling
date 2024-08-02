@@ -1,0 +1,86 @@
+package MultidimensionalArraysExercise;
+
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class MatrixShuffling_05 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        int[] input = Arrays.stream(scanner.nextLine().split(" ")).mapToInt(Integer::parseInt).toArray();
+
+        int rows = input[0];
+        int cols = input[1];
+
+        String[][] matrix = new String[rows][cols];
+
+        fillMatrix(matrix, scanner);
+
+        String command = scanner.nextLine();
+
+        while (!command.equals("END")) {
+          if (!isValidCommand(command, matrix)) {
+              System.out.println("Invalid input!");
+          } else {
+              String[] commandElements = command.split(" ");
+
+              int firstRow = Integer.parseInt(commandElements[1]);
+              int firstCol = Integer.parseInt(commandElements[2]);
+              int secondRow = Integer.parseInt(commandElements[3]);
+              int secondCol = Integer.parseInt(commandElements[4]);
+
+              String temp = matrix[firstRow][firstCol];
+              matrix[firstRow][firstCol] = matrix[secondRow][secondCol];
+              matrix[secondRow][secondCol] = temp;
+
+              printMatrix(matrix);
+          }
+
+            command = scanner.nextLine();
+        }
+    }
+
+    private static boolean isValidCommand(String command, String[][] matrix) {
+        String[] commandElements = command.split(" ");
+
+        if (commandElements.length != 5 || !commandElements[0].equals("swap")) {
+            return false;
+        } else {
+            int firstRow = Integer.parseInt(commandElements[1]);
+            int firstCol = Integer.parseInt(commandElements[2]);
+            int secondRow = Integer.parseInt(commandElements[3]);
+            int secondCol = Integer.parseInt(commandElements[4]);
+
+            boolean isValidRow = isValidRow(matrix, firstRow) && isValidRow(matrix, secondRow);
+            boolean isValidCol = isValidCol(matrix, firstCol) && isValidCol(matrix, secondCol);
+
+            return isValidRow && isValidCol;
+        }
+
+    }
+
+    private static boolean isValidCol(String[][] matrix, int col) {
+        return col >= 0 && col < matrix[0].length;
+    }
+
+    private static boolean isValidRow(String[][] matrix, int row) {
+        return row >= 0 && row < matrix.length;
+    }
+
+    private static void fillMatrix(String[][] matrix, Scanner scanner) {
+        for (int row = 0; row < matrix.length; row++) {
+            String[] currentRow = scanner.nextLine().split(" ");
+            matrix[row] = currentRow;
+        }
+    }
+
+    private static void printMatrix(String[][] matrix) {
+        for (int row = 0; row < matrix.length; row++) {
+            for (int col = 0; col < matrix[row].length; col++) {
+                System.out.print(matrix[row][col] + " ");
+            }
+            System.out.println();
+
+        }
+    }
+}
