@@ -1,0 +1,55 @@
+package MultidimensionalArraysExercise;
+
+import java.util.Scanner;
+
+public class MaximalSum_04 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        int[][] matrix = readMatrix(scanner);
+
+        int maxSum = Integer.MIN_VALUE;
+        int maxMatrixStartRow = 0;
+        int maxMatrixStartColumn = 0;
+
+        for (int row = 0; row < matrix.length - 2; row++) {
+            for (int col = 0; col < matrix[row].length - 2; col++) {
+                int sumOf3by3Matrix = matrix[row][col] + matrix[row][col + 1] + matrix[row][col + 2] +
+                        matrix[row + 1][col] + matrix[row + 1][col + 1] + matrix[row + 1][col + 2] +
+                        matrix[row + 2][col] + matrix[row + 2][col + 1] + matrix[row + 2][col + 2];
+
+                if (sumOf3by3Matrix > maxSum) {
+                    maxSum = sumOf3by3Matrix;
+                    maxMatrixStartRow = row;
+                    maxMatrixStartColumn = col;
+                }
+            }
+        }
+        System.out.println("Sum = " + maxSum);
+
+
+        for (int row = maxMatrixStartRow; row <= maxMatrixStartRow + 2; row++) {
+            for (int col = maxMatrixStartColumn; col <= maxMatrixStartColumn + 2; col++) {
+                System.out.print(matrix[row][col] + " ");
+            }
+            System.out.println();
+        }
+    }
+
+
+
+    private static int[][] readMatrix(Scanner scanner) {
+        int matrixRows = scanner.nextInt();
+        int matrixCols = scanner.nextInt();
+        int[][] matrix = new int[matrixRows][matrixCols];
+
+        for (int row = 0; row < matrix.length; row++) {
+            for (int col = 0; col < matrix[row].length; col++) {
+                matrix[row][col] = scanner.nextInt();
+
+            }
+        }
+
+        return matrix;
+    }
+}
