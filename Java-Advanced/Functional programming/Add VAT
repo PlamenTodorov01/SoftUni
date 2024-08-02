@@ -1,0 +1,24 @@
+package FunctionalProgramming_Lab;
+
+import java.util.Arrays;
+import java.util.Scanner;
+import java.util.function.DoubleUnaryOperator;
+import java.util.function.Function;
+
+public class AddVAT_04 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        double[] numbers = Arrays.stream(scanner.nextLine().split(", "))
+                .mapToDouble(Double::parseDouble)
+                .toArray();
+
+        DoubleUnaryOperator addVat = v -> v * 1.2;
+        System.out.println("Prices with VAT: ");
+
+        Arrays.stream(numbers)
+                .map(addVat)
+                .forEach(p -> System.out.printf("%.2f\n",p));
+
+    }
+}
