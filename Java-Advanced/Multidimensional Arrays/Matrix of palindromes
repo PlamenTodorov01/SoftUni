@@ -1,0 +1,39 @@
+package MultidimensionalArraysExercise;
+
+import java.util.Scanner;
+
+public class MatrixOfPalindromes_02 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        int matrixRows = scanner.nextInt();
+        int matrixCols = scanner.nextInt();
+
+        String[][] matrix = new String[matrixRows][matrixCols];
+
+        for (int row = 0; row < matrix.length; row++) {
+            int asciiValueA = 97;
+
+            for (int col = 0; col < matrix[row].length; col++) {
+                char firstLetter = (char) (asciiValueA + row);
+                char middleLetter = (char) (asciiValueA + col + row);
+                char lastLetter = (char) (asciiValueA + row);
+
+                String palindrome = String.format("%c%c%c",firstLetter,middleLetter,lastLetter);
+                matrix[row][col] = palindrome;
+            }
+
+        }
+
+       printMatrix(matrix);
+    }
+
+    private static void printMatrix(String[][] matrix) {
+        for (String[] arr : matrix) {
+            for (String palindrome : arr) {
+                System.out.print(palindrome + " ");
+            }
+            System.out.println();
+        }
+    }
+}
