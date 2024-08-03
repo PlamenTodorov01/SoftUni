@@ -1,0 +1,22 @@
+package FunctionalProgramming_Exercise;
+
+import java.util.Arrays;
+import java.util.Scanner;
+import java.util.function.Consumer;
+import java.util.function.Function;
+
+public class KnightsOfHonor_02 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        String[] names = scanner.nextLine().split("\\s+");
+
+//        Function<String,String> function = "Sir "::concat;
+//        Arrays.stream(names).map(function).forEach(System.out::println);
+
+        Consumer<String> consumer = name -> System.out.println("Sir " + name);
+        Arrays.stream(names).forEach(consumer);
+
+
+    }
+}
