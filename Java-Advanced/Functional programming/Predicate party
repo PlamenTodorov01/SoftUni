@@ -1,0 +1,68 @@
+package FunctionalProgramming_Exercise;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Scanner;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
+
+public class PredicateParty_10 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        List<String> people = Arrays.stream(scanner.nextLine().split(" ")).collect(Collectors.toList());
+
+        String input = scanner.nextLine();
+
+        while (!input.equals("Party!")) {
+            String[] tokens = input.split(" ");
+            String command = tokens[0];
+            String option = tokens[1];
+            String criteria = tokens[2];
+            Predicate<String> predicate = null;
+
+            switch (option) {
+                case "StartsWith":
+                    predicate = name -> name.startsWith(criteria);
+                    break;
+                case "EndsWith":
+                    predicate = name -> name.endsWith(criteria);
+                    break;
+                case "Length":
+                    predicate = name -> name.length() == Integer.parseInt(criteria);
+                    break;
+            }
+
+           if (command.equals("Double")) {
+              List<String> toAdd = new ArrayList<>();
+               for (String person : people) {
+                   if (predicate.test(person)) {
+                       toAdd.add(person);
+                   }
+               }
+               people.addAll(toAdd);
+
+           } else {
+               List<String> toRemove = new ArrayList<>();
+               for (String person : people) {
+                   if (predicate.test(person)) {
+                       toRemove.add(person);
+                   }
+               }
+               people.removeAll(toRemove);
+
+           }
+
+            input = scanner.nextLine();
+        }
+
+        if (people.isEmpty()) {
+            System.out.println("Nobody is going to the party!");
+        } else {
+            System.out.println(people.stream().sorted().collect(Collectors.toCollection(ArrayList::new))
+                    .toString().replaceAll("([\\[\\]])","") + " are going to the party!");
+        }
+
+    }
+}
