@@ -1,0 +1,30 @@
+package DefiningClasses_Lab.BankAccount;
+
+public class BankAccount {
+    private static int idProvider = 1;
+    private static double interestRate = 0.02;
+
+    private int id;
+    private double balance;
+
+
+    public BankAccount() {
+        this.id = idProvider++;
+    }
+
+    public int getId() {
+        return this.id;
+    }
+
+    public static void setInterestRate(double interest) {
+        interestRate = interest;
+    }
+
+    public void deposit(int moneyToDeposit) {
+        this.balance += moneyToDeposit;
+    }
+
+    public double getInterest(int years) {
+        return interestRate * years * balance;
+    }
+}
