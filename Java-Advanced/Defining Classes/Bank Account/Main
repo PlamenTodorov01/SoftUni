@@ -1,0 +1,60 @@
+package DefiningClasses_Lab.BankAccount;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner (System.in);
+
+        List<BankAccount> bankAccounts = new ArrayList<>();
+        String input = scanner.nextLine();
+
+        while (!input.equals("End")) {
+            String[] tokens = input.split(" ");
+            String command = tokens[0];
+
+            if (command.equals("Create")) {
+                BankAccount account = new BankAccount();
+                bankAccounts.add(account);
+                System.out.printf("Account ID%d created\n",account.getId());
+            } else if (command.equals("Deposit")) {
+                int bankAccountID = Integer.parseInt(tokens[1]);
+                int moneyToDeposit = Integer.parseInt(tokens[2]);
+                BankAccount account = getBankAccountByID(bankAccounts, bankAccountID);
+                if (account == null) {
+                    System.out.println("Account does not exist");
+                } else {
+                    account.deposit(moneyToDeposit);
+                    System.out.printf("Deposited %d to ID%d\n",moneyToDeposit,bankAccountID);
+                }
+            } else if (command.equals("SetInterest")) {
+                double interest = Double.parseDouble(tokens[1]);
+                BankAccount.setInterestRate(interest);
+            } else if (command.equals("GetInterest")) {
+                int accountID = Integer.parseInt(tokens[1]);
+                int years = Integer.parseInt(tokens[2]);
+
+                BankAccount account = getBankAccountByID(bankAccounts, accountID);
+                if (account == null) {
+                    System.out.println("Account does not exist");
+                } else {
+                    double interest = account.getInterest(years);
+                    System.out.printf("%.2f\n",interest);
+                }
+            }
+
+            input = scanner.nextLine();
+        }
+    }
+
+    private static BankAccount getBankAccountByID(List<BankAccount> bankAccounts, int bankAccountID) {
+        for (BankAccount account : bankAccounts) {
+            if (account.getId() == bankAccountID) {
+                return account;
+            }
+        }
+        return null;
+    }
+}
