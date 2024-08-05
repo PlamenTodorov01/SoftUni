@@ -1,0 +1,95 @@
+package DefiningClasses_Exercise.RawData_04;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        List<Car> cars = new ArrayList<>();
+
+        int n = Integer.parseInt(scanner.nextLine());
+
+        while (n > 0) {
+            String[] carData = scanner.nextLine().split(" ");
+            String carModel = carData[0];
+            int engineSpeed = Integer.parseInt(carData[1]);
+            int enginePower = Integer.parseInt(carData[2]);
+            int cargoWeight = Integer.parseInt(carData[3]);
+            String cargoType = carData[4];
+
+            List<Tire> tires = getTires(carData);
+            Engines engine = new Engines(engineSpeed,enginePower);
+            Cargo cargo = new Cargo(cargoWeight,cargoType);
+            Car car = new Car(carModel,engine,cargo,tires);
+            cars.add(car);
+
+            n--;
+        }
+
+        String command = scanner.nextLine();
+
+        switch (command) {
+            case "fragile" -> printFragile(cars);
+            case "flamable" -> printFlamable(cars);
+        }
+
+
+    }
+
+    private static void printFlamable(List<Car> cars) {
+        for (Car car : cars) {
+            boolean hasValidCargo = true;
+            boolean hasValidEngine = true;
+
+            if (!car.getCargo().getCargoType().equals("flamable")) {
+                hasValidCargo = false;
+            }
+            if (car.getEngine().getEnginePower() <= 250) {
+                hasValidEngine = false;
+            }
+            if (hasValidCargo && hasValidEngine) {
+                System.out.println(car.getModel());
+            }
+
+        }
+
+
+    }
+
+    private static void printFragile(List<Car> cars) {
+
+        for (Car car : cars) {
+            boolean hasValidCargo = false;
+            boolean hasValidTire = false;
+
+            if (car.getCargo().getCargoType().equals("fragile")) {
+                hasValidCargo = true;
+            }
+            for (Tire tire : car.getTires()) {
+                if (tire.getTirePressure() < 1) {
+                    hasValidTire = true;
+                    break;
+                }
+            }
+
+            if (hasValidCargo && hasValidTire) {
+                System.out.println(car.getModel());
+            }
+        }
+
+    }
+
+    private static List<Tire> getTires(String[] carData) {
+        List<Tire> tires = new ArrayList<>();
+
+        for (int i = 5; i < carData.length; i+=2) {
+            double tirePressure = Double.parseDouble(carData[i]);
+            int tireAge = Integer.parseInt(carData[i + 1]);
+            Tire tire = new Tire(tirePressure,tireAge);
+            tires.add(tire);
+        }
+        return tires;
+    }
+}
