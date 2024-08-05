@@ -1,0 +1,32 @@
+package DefiningClasses_Exercise.OpinionPoll_01;
+
+import java.util.*;
+
+public class OpinionPoll_01 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        List<Person> persons = new ArrayList<>();
+        int n = Integer.parseInt(scanner.nextLine());
+
+        while (n > 0) {
+            String personInfo = scanner.nextLine();
+            String[] personData = personInfo.split(" ");
+            String name = personData[0];
+            int age = Integer.parseInt(personData[1]);
+
+            Person person = new Person(name,age);
+            persons.add(person);
+
+            n--;
+        }
+
+        Collections.sort(persons, Comparator.comparing(Person::getName));
+
+        persons.stream()
+                .filter(p -> p.getAge() > 30)
+                .forEach(System.out::println);
+
+
+    }
+}
