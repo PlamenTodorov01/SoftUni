@@ -1,0 +1,50 @@
+package DefiningClasses_Exercise.SpeedRacing_03;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        List<Car> carsList = new ArrayList<>();
+        int n = Integer.parseInt(scanner.nextLine());
+
+        for (int i = 0; i < n; i++) {
+            String[] carData = scanner.nextLine().split(" ");
+            String carModel = carData[0];
+            double fuel = Double.parseDouble(carData[1]);
+            double fuelPerKm = Double.parseDouble(carData[2]);
+
+            Car car = new Car(carModel,fuel,fuelPerKm);
+            carsList.add(car);
+        }
+
+        String input = scanner.nextLine();
+
+        while (!input.equals("End")) {
+            String[] carInfo = input.split(" ");
+            String carModel = carInfo[1];
+            int kmToDrive = Integer.parseInt(carInfo[2]);
+
+            Car carToDrive = getCarByModel(carsList, carModel);
+            carToDrive.drive(kmToDrive);
+
+
+            input = scanner.nextLine();
+        }
+
+        carsList.forEach(System.out::println);
+
+    }
+
+    private static Car getCarByModel(List<Car> carsList, String carModel) {
+        for (Car car : carsList) {
+            if (car.getModel().equals(carModel)) {
+                return car;
+            }
+        }
+        return null;
+    }
+}
