@@ -1,0 +1,23 @@
+package Generics_Lab.GenericScale;
+
+public class Scale<T extends Comparable<T>>{
+    private T leftElement;
+    private T rightElement;
+
+    public Scale(T left, T right) {
+        this.leftElement = left;
+        this.rightElement = right;
+    }
+
+    public T getHeavier() {
+        int result = leftElement.compareTo(rightElement);
+
+        if (result > 0) {
+            return leftElement;
+        } else if (result < 0) {
+            return rightElement;
+        }
+
+        return null;
+    }
+}
