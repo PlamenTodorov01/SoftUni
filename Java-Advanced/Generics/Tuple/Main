@@ -1,0 +1,61 @@
+package Generics_Exercises.Tuple;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        //10. Tuple
+//        List<Tuple> tuples = new ArrayList<>();
+//
+//        for (int i = 0; i < 3; i++) {
+//            String[] inputArray = scanner.nextLine().split("\\s+");
+//
+//            if (i == 0) {
+//                String firstAndLastName = inputArray[0] + " " + inputArray[1];
+//                String address = inputArray[2];
+//                Tuple<String,String> personNameAndAddress = new Tuple<>(firstAndLastName,address);
+//                tuples.add(personNameAndAddress);
+//            } else if (i == 1) {
+//                String name = inputArray[0];
+//                Integer beerLiters = Integer.parseInt(inputArray[1]);
+//                Tuple<String,Integer> person = new Tuple<>(name,beerLiters);
+//                tuples.add(person);
+//            } else {
+//                int intValue = Integer.parseInt(inputArray[0]);
+//                double doubleValue = Double.parseDouble(inputArray[1]);
+//                Tuple<Integer,Double> values = new Tuple<>(intValue,doubleValue);
+//                tuples.add(values);
+//            }
+//        }
+//
+//        tuples.forEach(System.out::println);
+
+        String[] firstLine = scanner.nextLine().split("\\s+");
+        String fullName = firstLine[0] + " " + firstLine[1];
+        String address = firstLine[2];
+        String town = firstLine[3];
+
+        Threeuple<String, String, String> firstTuple = new Threeuple<>(fullName, address, town);
+
+        String[] secondLine = scanner.nextLine().split("\\s+");
+        String name = secondLine[0];
+        int litersOfBeer = Integer.parseInt(secondLine[1]);
+        boolean drunkOrNot = secondLine[2].equals("drunk");
+        Threeuple<String, Integer, Boolean> secondTuple = new Threeuple<>(name, litersOfBeer, drunkOrNot);
+
+        String[] thirdLine = scanner.nextLine().split("\\s+");
+        String personName = thirdLine[0];
+        double accountBalance = Double.parseDouble(thirdLine[1]);
+        String bankName = thirdLine[2];
+        Threeuple<String, Double, String> thirdTuple = new Threeuple<>(personName, accountBalance, bankName);
+
+        System.out.println(firstTuple);
+        System.out.println(secondTuple);
+        System.out.println(thirdTuple);
+
+    }
+}
