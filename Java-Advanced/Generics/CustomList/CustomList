@@ -1,0 +1,66 @@
+package Generics_Exercises.CustomList;
+
+
+import java.util.ArrayList;
+import java.util.Collections;
+
+import java.util.Iterator;
+import java.util.List;
+
+public class CustomList<T extends Comparable<T>>  {
+
+    private List<T> values;
+
+    public CustomList() {
+        this.values = new ArrayList<>();
+    }
+
+    public void add(T element) {
+        this.values.add(element);
+    }
+
+    public T remove(int index) {
+        return this.values.remove(index);
+    }
+
+    public boolean contains(T element) {
+        return this.values.contains(element);
+    }
+
+    public void swap(int first, int second) {
+//        T firstElementToSwap = values.get(first);
+//        T secondElementToSwap = values.get(second);
+//        values.set(first,secondElementToSwap);
+//        values.set(second,firstElementToSwap);
+        Collections.swap(this.values, first, second);
+
+    }
+
+    public int countGreaterThan(T element) {
+        int count = 0;
+        for (T value : this.values) {
+            int comparingResult = value.compareTo(element);
+            if (comparingResult > 0) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    public T getMin() {
+        return Collections.min(this.values);
+    }
+
+    public T getMax() {
+        return Collections.max(this.values);
+    }
+
+    public void Print() {
+        this.values.forEach(System.out::println);
+    }
+
+    public void sort() {
+        Collections.sort(this.values);
+    }
+
+}
