@@ -1,0 +1,45 @@
+package Generics_Exercises.Box;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Box <T extends Comparable<T>>{
+    private List<T> values;
+
+    public Box() {
+        this.values = new ArrayList<>();
+    }
+
+    public void add(T value) {
+        this.values.add(value);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (T value : this.values) {
+            String formattedValue = String.format("%s: %s",value.getClass().getName(),value);
+            sb.append(formattedValue).append(System.lineSeparator());
+        }
+        return sb.toString();
+    }
+
+    public void swapElements (int firstIndex, int secondIndex) {
+        T firstElement = this.values.get(firstIndex);
+        T secondElement = this.values.get(secondIndex);
+        this.values.set(firstIndex,secondElement);
+        this.values.set(secondIndex,firstElement);
+
+    }
+
+    public int countGreaterValues (T valueToCompare) {
+        int count = 0;
+        for (T value : this.values) {
+            int comparingResult = value.compareTo(valueToCompare);
+            if (comparingResult > 0) {
+                count++;
+            }
+        }
+        return count;
+    }
+}
