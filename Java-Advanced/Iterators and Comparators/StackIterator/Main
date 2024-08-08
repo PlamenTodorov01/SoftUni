@@ -1,0 +1,40 @@
+package IteratorsAndComparators_Exercise.StackIterator_03;
+
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        String command = scanner.nextLine();
+        CustomStack stack = new CustomStack();
+
+        while (!command.equals("END")) {
+            if (command.contains("Push")) {
+                int[] numbers = Arrays.stream(command.replace("Push ", "")
+                                .split(", "))
+                        .mapToInt(Integer::parseInt)
+                        .toArray();
+                for (int number : numbers) {
+                    stack.push(number);
+                }
+
+            } else if (command.equals("Pop")) {
+                    stack.pop();
+            }
+
+
+            command = scanner.nextLine();
+        }
+
+        for (Integer number : stack) {
+            System.out.println(number);
+        }
+
+        for (Integer number : stack) {
+            System.out.println(number);
+        }
+
+    }
+}
