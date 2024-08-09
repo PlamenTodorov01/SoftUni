@@ -1,0 +1,35 @@
+package FilesAndStreams_Lab;
+
+import java.io.*;
+import java.util.Scanner;
+
+public class WriteEveryThirdLine_05 {
+    public static void main(String[] args) throws IOException {
+
+        String inputPath = "C:\\Users\\Plamen\\Desktop\\SoftUni\\3. Java Advanced\\" +
+                "4. Streams Files and Directories\\04. Java-Advanced-Files-and-Streams-Lab-Resources\\input.txt";
+
+        String outputPath = "C:\\Users\\Plamen\\Desktop\\SoftUni\\3. Java Advanced\\" +
+                "4. Streams Files and Directories\\04. Java-Advanced-Files-and-Streams-Lab-Resources\\" +
+                "05.WriteEveryThirdLineOutput.txt";
+
+        FileInputStream inputStream = new FileInputStream(inputPath);
+        FileOutputStream outputStream = new FileOutputStream(outputPath);
+
+        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+        BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outputStream));
+        int count = 1;
+        String line = reader.readLine();
+
+        while (line != null) {
+            if (count % 3 == 0) {
+                writer.write(line);
+                writer.newLine();
+            }
+            count++;
+
+            line = reader.readLine();
+        }
+        writer.close();
+    }
+}
