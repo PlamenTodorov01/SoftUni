@@ -1,0 +1,37 @@
+package FilesAndStreams_Lab;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.PrintWriter;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Scanner;
+
+public class ExtractIntegers_04 {
+    public static void main(String[] args) throws FileNotFoundException {
+
+        String inputPath = "C:\\Users\\Plamen\\Desktop\\SoftUni\\3. Java Advanced\\" +
+                "4. Streams Files and Directories\\04. Java-Advanced-Files-and-Streams-Lab-Resources\\input.txt";
+
+        String outputPath = "C:\\Users\\Plamen\\Desktop\\SoftUni\\3. Java Advanced\\" +
+                "4. Streams Files and Directories\\04. Java-Advanced-Files-and-Streams-Lab-Resources\\" +
+                "04.ExtractIntegersOutput.txt";
+
+        FileInputStream inputStream = new FileInputStream(inputPath);
+        FileOutputStream outputStream = new FileOutputStream(outputPath);
+
+        PrintWriter writer = new PrintWriter(outputStream);
+        Scanner scanner = new Scanner(inputStream);
+
+        while (scanner.hasNext()) {
+            if (scanner.hasNextInt()) {
+                writer.println(scanner.nextInt());
+            }
+
+            scanner.next();
+        }
+        //writer.flush();
+        writer.close();
+    }
+}
