@@ -1,0 +1,30 @@
+package FilesAndStreams_Exercise;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.List;
+
+public class SumBytes_02 {
+    public static void main(String[] args) throws IOException {
+
+        String path = "D:\\SoftUni\\Java-Advanced\\src\\FilesAndStreams_Exercise\\input.txt";
+
+        BufferedReader reader = new BufferedReader(new FileReader(path));
+
+        String line = reader.readLine();
+        int sum = 0;
+
+        while (line != null) {
+            for (char symbol : line.toCharArray()) {
+                sum += symbol;
+            }
+            line = reader.readLine();
+
+        }
+        System.out.println(sum);
+
+    }
+}
