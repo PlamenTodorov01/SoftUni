@@ -1,0 +1,38 @@
+package FilesAndStreams_Exercise;
+
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.List;
+
+public class MergeTwoFiles_07 {
+    public static void main(String[] args) throws IOException {
+
+        String inputOne = "D:\\SoftUni\\Java-Advanced\\src\\FilesAndStreams_Exercise\\inputOne.txt";
+        String inputTwo = "D:\\SoftUni\\Java-Advanced\\src\\FilesAndStreams_Exercise\\inputTwo.txt";
+
+        FileInputStream firstInput = new FileInputStream(inputOne);
+       FileInputStream secondInput = new FileInputStream(inputTwo);
+
+        FileOutputStream outputStream = new FileOutputStream("D:\\SoftUni\\Java-Advanced\\src\\FilesAndStreams_Exercise\\output.txt");
+
+        int oneByte = firstInput.read();
+
+        writeInputToAnotherFile(oneByte, outputStream, firstInput);
+
+        oneByte = secondInput.read();
+        outputStream.write(System.lineSeparator().getBytes());
+
+        writeInputToAnotherFile(oneByte, outputStream, secondInput);
+
+
+    }
+
+    private static void writeInputToAnotherFile(int oneByte, FileOutputStream outputStream, FileInputStream firstInput) throws IOException {
+        while (oneByte >= 0) {
+             outputStream.write(oneByte);
+
+            oneByte = firstInput.read();
+        }
+    }
+}
