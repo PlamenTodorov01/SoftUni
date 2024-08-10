@@ -1,0 +1,31 @@
+package FilesAndStreams_Lab;
+
+import java.io.*;
+
+public class ListFiles_07 {
+    public static void main(String[] args) throws IOException {
+
+        String path = "C:\\Users\\Plamen\\Desktop\\SoftUni\\3. Java Advanced\\4. Streams Files and Directories" +
+                "\\04. Java-Advanced-Files-and-Streams-Lab-Resources\\Files-and-Streams";
+
+        String output = "C:\\Users\\Plamen\\Desktop\\SoftUni\\3. Java Advanced\\4. Streams Files and Directories" +
+                "\\04. Java-Advanced-Files-and-Streams-Lab-Resources\\Files-and-Streams\\output.txt";
+
+        File file = new File(path);
+
+        File[] files = file.listFiles();
+
+        PrintWriter writer = new PrintWriter(new OutputStreamWriter(new FileOutputStream(output)));
+
+        if (files != null) {
+            for (File f : files) {
+                if (!f.isDirectory()) {
+                    writer.printf("%s: [%d]\n",f.getName(),f.length());
+                }
+            }
+
+        }
+        writer.close();
+
+    }
+}
