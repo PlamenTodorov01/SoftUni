@@ -1,0 +1,47 @@
+package FilesAndStreams_Exercise;
+
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
+
+public class CountCharacterTypes_04 {
+    public static void main(String[] args) throws IOException {
+
+        String path = "D:\\SoftUni\\Java-Advanced\\src\\FilesAndStreams_Exercise\\input.txt";
+        String outputPath = "D:\\SoftUni\\Java-Advanced\\src\\FilesAndStreams_Exercise\\output.txt";
+
+        String content = Files.readString(Path.of(path));
+        content = content.replaceAll("\\s+", "");
+
+        int countVowel = 0;
+        int countPunctuations = 0;
+        int countOther = 0;
+
+        for (char symbol : content.toCharArray()) {
+            if (isVowel(symbol)) {
+                countVowel++;
+            } else if (isPunctuation(symbol)) {
+                countPunctuations++;
+            } else {
+                countOther++;
+            }
+        }
+
+        PrintWriter writer = new PrintWriter(outputPath);
+        writer.println("Vowels: " + countVowel);
+        writer.println("Other symbols: " + countOther);
+        writer.println("Punctuation: " + countPunctuations);
+        writer.close();
+
+    }
+
+    private static boolean isPunctuation(char symbol) {
+        return symbol == '!' || symbol == '?' || symbol == '.' || symbol == ',';
+    }
+
+    private static boolean isVowel(char symbol) {
+        return symbol == 'a' || symbol == 'e' || symbol == 'o' || symbol == 'u' || symbol == 'i';
+    }
+}
