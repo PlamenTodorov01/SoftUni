@@ -1,0 +1,29 @@
+package FilesAndStreams_Exercise;
+
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.PrintWriter;
+import java.util.Scanner;
+
+public class allCapitals_03 {
+    public static void main(String[] args) throws FileNotFoundException {
+
+        String path = "D:\\SoftUni\\Java-Advanced\\src\\FilesAndStreams_Exercise\\input.txt";
+        String outputPath = "D:\\SoftUni\\Java-Advanced\\src\\FilesAndStreams_Exercise\\output.txt";
+
+        Scanner scanner = new Scanner(new FileReader(path));
+        PrintWriter writer = new PrintWriter(outputPath);
+
+        while (scanner.hasNextLine()) {
+            String currentLine = scanner.nextLine();
+            currentLine = currentLine.toUpperCase();
+
+            writer.write(currentLine);
+            writer.println();
+
+        }
+        writer.close();
+
+
+    }
+}
