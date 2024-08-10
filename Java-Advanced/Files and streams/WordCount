@@ -1,0 +1,42 @@
+package FilesAndStreams_Exercise;
+
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Scanner;
+
+public class WordCount_06 {
+    public static void main(String[] args) throws IOException {
+
+        String inputPath = "D:\\SoftUni\\Java-Advanced\\src\\FilesAndStreams_Exercise\\words.txt";
+        String outputPath = "D:\\SoftUni\\Java-Advanced\\src\\FilesAndStreams_Exercise\\results.txt";
+        String path = "D:\\SoftUni\\Java-Advanced\\src\\FilesAndStreams_Exercise\\text.txt";
+
+        Scanner scanner = new Scanner(new FileReader(inputPath));
+
+        String[] words = scanner.nextLine().split(" ");
+        String text = Files.readString(Path.of(path));
+
+        Map<String,Integer> wordsCount = new LinkedHashMap<>();
+
+        for (String word : words) {
+            wordsCount.put(word,0);
+        }
+
+        for (String word : text.split("\\s+")) {
+            if (wordsCount.containsKey(word)) {
+                int count = wordsCount.get(word);
+                wordsCount.put(word, count + 1);
+            }
+        }
+
+        PrintWriter writer = new PrintWriter(outputPath);
+            wordsCount.entrySet().forEach(entry -> writer.println(entry.getKey() + " - " + entry.getValue()));
+            writer.close();
+    }
+}
