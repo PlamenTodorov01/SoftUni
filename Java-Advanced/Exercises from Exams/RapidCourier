@@ -1,0 +1,66 @@
+package ExamJune2024;
+
+import java.util.*;
+import java.util.stream.Collectors;
+
+public class RapidCourier_01 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        ArrayDeque<Integer> packagesStack = new ArrayDeque<>();
+        ArrayDeque<Integer> couriersQueue = new ArrayDeque<>();
+
+        Arrays.stream(scanner.nextLine().split("\\s+"))
+                .map(Integer::parseInt).forEach(packagesStack::push);
+
+        Arrays.stream(scanner.nextLine().split("\\s+"))
+                .map(Integer::parseInt).forEach(couriersQueue::offer);
+
+        int totalWeightDelivered = 0;
+
+        while (!packagesStack.isEmpty() && !couriersQueue.isEmpty()) {
+            int currentPackage = packagesStack.pop();
+            int currentCourier = couriersQueue.poll();
+
+            if (currentCourier > currentPackage) {
+                totalWeightDelivered += currentPackage;
+                int reducedCapacity = currentPackage * 2;
+                currentCourier -= reducedCapacity;
+
+                if (currentCourier > 0) {
+                    couriersQueue.offer(currentCourier);
+                }
+            } else if (currentCourier < currentPackage) {
+                int newPackageWeight = currentPackage - currentCourier;
+                totalWeightDelivered += currentCourier;
+
+                packagesStack.push(newPackageWeight);
+            } else {
+                totalWeightDelivered += currentPackage;
+            }
+
+        }
+        List<Integer> reversedStack = new ArrayList<>(packagesStack);
+        Collections.reverse(reversedStack);
+
+
+        String output = "";
+        System.out.printf("Total weight: %d kg\n", totalWeightDelivered);
+        if (packagesStack.isEmpty() && couriersQueue.isEmpty()) {
+            System.out.println("Congratulations, all packages were delivered successfully by the couriers today.");
+
+        } else if (!packagesStack.isEmpty() && couriersQueue.isEmpty()) {
+            output = reversedStack.stream().map(String::valueOf)
+                    .collect(Collectors.joining(", "));
+            System.out.println("Unfortunately, there are no more available couriers to deliver the following packages: "
+                    + output);
+
+        } else if (packagesStack.isEmpty() && !couriersQueue.isEmpty()) {
+
+            output = couriersQueue.stream().map(String::valueOf)
+                            .collect(Collectors.joining(", "));
+            System.out.println("Couriers are still on duty: " + output + " but there are no more packages to deliver.");
+        }
+
+    }
+}
