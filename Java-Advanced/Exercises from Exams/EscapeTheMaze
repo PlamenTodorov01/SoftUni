@@ -1,0 +1,99 @@
+package ExamPreparation;
+
+import java.util.Scanner;
+
+public class EscapeTheMaze {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        int n = Integer.parseInt(scanner.nextLine());
+        char[][] matrix = new char[n][n];
+
+        fillTheMatrix(matrix, scanner, n);
+        int[] myPosition = findMyStartingPosition(matrix);
+        int myRow = myPosition[0];
+        int myCol = myPosition[1];
+        int health = 100;
+
+        while (health > 0) {
+            matrix[myRow][myCol] = '-';
+            String command = scanner.nextLine();
+
+            switch (command) {
+                case "up" -> myRow--;
+                case "down" -> myRow++;
+                case "right" -> myCol++;
+                case "left" -> myCol--;
+            }
+
+            if (myRow < 0) {
+                myRow--;
+            } else if (myRow == matrix.length) {
+                myRow = matrix.length - 1;
+            } else if (myCol < 0) {
+                myCol--;
+            } else if (myCol == matrix.length) {
+                myCol = matrix.length - 1;
+            }
+
+            if (matrix[myRow][myCol] == 'M') {
+                health -= 40;
+                if (health < 0) {
+                    health = 0;
+                    System.out.println("Player is dead. Maze over!");
+                    break;
+                }
+            }
+
+            if (matrix[myRow][myCol] == 'H') {
+                health += 15;
+                if (health > 100) {
+                    health = 100;
+                }
+            }
+
+            if (matrix[myRow][myCol] == 'X') {
+                System.out.println("Player escaped the maze. Danger passed!");
+                break;
+            }
+
+            matrix[myRow][myCol] = 'P';
+
+        }
+
+        System.out.printf("Player's health: %d units\n",health);
+        matrix[myRow][myCol] = 'P';
+        printMatrix(matrix);
+
+    }
+
+    private static void fillTheMatrix(char[][] matrix, Scanner scanner, int n) {
+        for (int row = 0; row < n; row++) {
+            char[] matrixRow = scanner.nextLine().toCharArray();
+            matrix[row] = matrixRow;
+        }
+    }
+
+    private static int[] findMyStartingPosition(char[][] matrix) {
+        int[] myPosition = new int[2];
+        for (int row = 0; row < matrix.length; row++) {
+            for (int col = 0; col < matrix.length; col++) {
+                if (matrix[row][col] == 'P') {
+                    myPosition[0] = row;
+                    myPosition[1] = col;
+                }
+            }
+        }
+        return myPosition;
+    }
+
+    public static void printMatrix(char[][] matrix) {
+        for (int row = 0; row < matrix.length; row++) {
+            for (int col = 0; col < matrix.length; col++) {
+                System.out.print(matrix[row][col]);
+            }
+            System.out.println();
+
+        }
+    }
+}
