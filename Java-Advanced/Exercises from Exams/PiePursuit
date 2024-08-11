@@ -1,0 +1,62 @@
+package ExamPreparation;
+
+import java.util.*;
+import java.util.stream.Collectors;
+
+public class PiePursuit {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        ArrayDeque<Integer> participantsQueue = new ArrayDeque<>();
+        ArrayDeque<Integer> piesStack = new ArrayDeque<>();
+
+        Arrays.stream(scanner.nextLine().split("\\s+"))
+                .map(Integer::parseInt)
+                .forEach(participantsQueue::offer);
+
+        Arrays.stream(scanner.nextLine().split("\\s+"))
+                .map(Integer::parseInt)
+                .forEach(piesStack::push);
+
+        while (!piesStack.isEmpty() && !participantsQueue.isEmpty()) {
+            int currentParticipant = participantsQueue.pop();
+            int currentPie = piesStack.poll();
+
+            if (currentParticipant >= currentPie) {
+                currentParticipant -= currentPie;
+                if (currentParticipant > 0) {
+                    participantsQueue.offer(currentParticipant);
+                }
+            } else {
+                currentPie -= currentParticipant;
+                if (currentPie == 1 && piesStack.size() > 1) {
+                    int nextPie = piesStack.pop() + 1;
+                    piesStack.push(nextPie);
+                } else {
+                    piesStack.push(currentPie);
+                }
+            }
+        }
+
+        if (piesStack.isEmpty() && !participantsQueue.isEmpty()) {
+            System.out.println("We will have to wait for more pies to be baked!");
+            String output = participantsQueue.stream().map(String::valueOf)
+                    .collect(Collectors.joining(", "));
+            System.out.println("Contestants left: " + output);
+        } else if (piesStack.isEmpty() && participantsQueue.isEmpty()) {
+            System.out.println("We have a champion!");
+        } else if (!piesStack.isEmpty() && participantsQueue.isEmpty()) {
+            System.out.println("Our contestants need to rest!");
+            //            List<Integer> reversedPies = new ArrayList<>(piesStack);
+            //            Collections.reverse(reversedPies);
+            for (Integer pie : piesStack) {
+                participantsQueue.push(pie);
+            }
+
+            String output = participantsQueue.stream().map(String::valueOf)
+                    .collect(Collectors.joining(", "));
+            System.out.println("Pies left: " + output);
+        }
+
+    }
+}
