@@ -1,0 +1,50 @@
+package ExamPreparation;
+
+import java.util.ArrayDeque;
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class ChickenSnack {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        ArrayDeque<Integer> moneyStack = new ArrayDeque<>();
+        ArrayDeque<Integer> priceQueue = new ArrayDeque<>();
+
+        Arrays.stream(scanner.nextLine().split("\\s+"))
+                .map(Integer::parseInt)
+                .forEach(moneyStack::push);
+
+        Arrays.stream(scanner.nextLine().split("\\s+"))
+                .map(Integer::parseInt)
+                .forEach(priceQueue::offer);
+
+        int eatCount = 0;
+
+        while (!moneyStack.isEmpty() && !priceQueue.isEmpty()) {
+            int currentMoney = moneyStack.pop();
+            int currentPrice = priceQueue.poll();
+            int diff = 0;
+            int nextMoney = 0;
+
+            if (currentMoney < currentPrice) {
+                continue;
+            } else if (currentMoney > currentPrice && !moneyStack.isEmpty()) {
+                diff = currentMoney - currentPrice;
+                nextMoney = moneyStack.pop() + diff;
+                moneyStack.push(nextMoney);
+            }
+            eatCount++;
+        }
+
+        if (eatCount >= 4) {
+            System.out.printf("Gluttony of the day! Henry ate %d foods.\n", eatCount);
+        } else if (eatCount == 0) {
+            System.out.println("Henry remained hungry. He will try next weekend again.");
+        } else if (eatCount == 1) {
+            System.out.printf("Henry ate: %d food.", eatCount);
+        } else {
+            System.out.printf("Henry ate: %d foods.", eatCount);
+        }
+    }
+}
