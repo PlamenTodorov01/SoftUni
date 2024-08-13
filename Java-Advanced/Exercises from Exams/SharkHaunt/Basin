@@ -1,0 +1,77 @@
+package ExamPreparation.sharkHaunt;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
+
+public class Basin {
+
+    private String name;
+    private int capacity;
+    private List<Shark> sharks;
+
+    public Basin(String name, int capacity) {
+        this.name = name;
+        this.capacity = capacity;
+        this.sharks = new ArrayList<>();
+    }
+
+    public void addShark(Shark shark) {
+        if (this.capacity > sharks.size()) {
+            sharks.add(shark);
+        } else {
+            System.out.println("This basin is at full capacity!");
+        }
+    }
+
+    public boolean removeShark(String kind) {
+        for (Shark shark : sharks) {
+            if (shark.getKind().equals(kind)) {
+                sharks.remove(shark);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public Shark getLargestShark() {
+        return Collections.max(sharks, Comparator.comparing(Shark::getLength));
+    }
+
+    public Shark getShark(String kind) {
+        for (Shark shark : sharks) {
+            if (shark.getKind().equals(kind)) {
+                return shark;
+            }
+        }
+        return null;
+    }
+
+    public int getCount() {
+        return this.sharks.size();
+    }
+
+    public int getAverageLength() {
+        return (int) sharks.stream()
+                .mapToInt(Shark::getLength)
+                .average().getAsDouble();
+    }
+
+    public String report() {
+        StringBuilder sb = new StringBuilder();
+        String head = String.format("Sharks in %s:\n", this.name);
+        sb.append(head);
+
+        for (int i = 0; i < sharks.size(); i++) {
+            sb.append(sharks.get(i).toString());
+            if (i != sharks.size() - 1) {
+                sb.append(System.lineSeparator());
+            }
+
+        }
+
+        return sb.toString();
+    }
+}
