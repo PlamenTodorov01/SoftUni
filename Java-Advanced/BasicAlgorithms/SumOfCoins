@@ -1,0 +1,58 @@
+package BasicAlgorithms;
+
+import java.util.*;
+
+public class SumOfCoins_03 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner (System.in);
+
+        String[] elements = scanner.nextLine().substring(7).split(", ");
+        int[] numbers = new int[elements.length];
+
+        for (int index = 0; index < numbers.length; index++) {
+            numbers[index] = Integer.parseInt(elements[index]);
+        }
+
+        int targetSum = Integer.parseInt(scanner.nextLine().substring(5));
+
+        Map<Integer,Integer> usedCoins = chooseCoins(numbers,targetSum);
+        int numberOfCoins = usedCoins.values().stream().mapToInt(Integer::valueOf).sum();
+
+        System.out.println("Number of coins to take: " + numberOfCoins);
+
+        for (Map.Entry<Integer, Integer> usedCoin : usedCoins.entrySet()) {
+            System.out.printf("%d coin(s) with value %d\n",usedCoin.getValue(), usedCoin.getKey());
+        }
+
+    }
+
+    private static Map<Integer, Integer> chooseCoins(int[] numbers, int targetSum) {
+        Map<Integer,Integer> usedCoins = new LinkedHashMap<>();
+
+        int[] sortedCoins = Arrays.stream(numbers).boxed().sorted((f,s) -> Integer.compare(s,f))
+                .mapToInt(c -> c)
+                .toArray();
+
+        int index = 0;
+        int currentSum = 0;
+        int remainingSum = targetSum - currentSum;
+
+        while (remainingSum > 0 && index < sortedCoins.length) {
+            int coin = sortedCoins[index++];
+            int numberOfCoins = targetSum / coin;
+            currentSum += coin * numberOfCoins;
+            targetSum = targetSum % coin;
+
+            if (numberOfCoins != 0) {
+                usedCoins.put(coin, numberOfCoins);
+            }
+        }
+
+        if (targetSum > 0) {
+            throw new IllegalArgumentException("Error");
+        }
+
+        return usedCoins;
+
+    }
+}
