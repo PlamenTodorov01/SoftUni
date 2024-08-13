@@ -1,0 +1,83 @@
+package vintageLocos;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
+public class TrainStation {
+
+    private String name;
+    private int capacity;
+    private int railGauge;
+    private List<Locomotive> locomotives;
+
+    public TrainStation(String name, int capacity, int railGauge) {
+        this.name = name;
+        this.capacity = capacity;
+        this.railGauge = railGauge;
+        this.locomotives = new ArrayList<>();
+    }
+
+    public void addLocomotive(Locomotive locomotive) {
+        if ((locomotives.size() < capacity) && (this.railGauge == locomotive.getGauge())) {
+            this.locomotives.add(locomotive);
+        } else if (locomotives.size() >= capacity) {
+            System.out.println("This train station is full!");
+        } else if (this.railGauge != locomotive.getGauge()) {
+            int diff = Math.abs(this.railGauge - locomotive.getGauge());
+            System.out.println("The rail gauge of this station does not match the locomotive gauge! " +
+                    "Difference: " + diff + " mm.");
+        }
+    }
+
+    public boolean removeLocomotive(String name) {
+        return locomotives.removeIf(locomotive -> locomotive.getName().equals(name));
+    }
+
+    public String getFastestLocomotive() {
+        if (this.locomotives.isEmpty()) {
+            return "There are no locomotives.";
+        }
+        Locomotive locomotive = Collections.max(locomotives, Comparator.comparing(Locomotive::getMaxSpeed));
+        return String.format("%s is the fastest locomotive with a " +
+                "maximum speed of %d km/h.", locomotive.getName(), locomotive.getMaxSpeed());
+    }
+
+    public Locomotive getLocomotive(String name) {
+        for (Locomotive locomotive : locomotives) {
+            if (locomotive.getName() == name) {
+                return locomotive;
+            }
+        }
+        return null;
+    }
+
+    public int getCount() {
+        return this.locomotives.size();
+    }
+
+    public String getOldestLocomotive() {
+        if (this.locomotives.isEmpty()) {
+            return "There are no locomotives.";
+        }
+       Locomotive oldest = Collections.min(locomotives,Comparator.comparing(Locomotive::getBuildDate));
+        return oldest.getName();
+    }
+
+    public String getStatistics() {
+        if (this.locomotives.isEmpty()) {
+            return String.format("There are no locomotives departing from %s station.",this.name);
+        }
+
+        StringBuilder sb = new StringBuilder();
+        sb.append(String.format("Locomotives departed from %s:",this.name)).append(System.lineSeparator());
+        int count = 1;
+        for (Locomotive locomotive : locomotives) {
+            sb.append(String.format("%d. %s", count, locomotive.getName())).append(System.lineSeparator());
+            count++;
+        }
+       return sb.toString().trim();
+    }
+
+}
