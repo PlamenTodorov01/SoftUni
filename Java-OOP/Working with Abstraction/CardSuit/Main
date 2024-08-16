@@ -1,0 +1,19 @@
+package workingwithabstraction_exercise.CardSuit_01;
+
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        CardSuit[] suits = CardSuit.values();
+
+        System.out.println("Card Suits:");
+
+        for (CardSuit suit : suits) {
+            int ordinal = suit.ordinal();
+            System.out.printf("Ordinal value: %d; Name value: %s\n",ordinal,suit);
+        }
+
+    }
+}
