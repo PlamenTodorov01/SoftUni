@@ -1,0 +1,124 @@
+package workingwithabstraction_exercise.GreedyTimes_06;
+
+import java.util.LinkedHashMap;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        long bagSize = Long.parseLong(scanner.nextLine());
+        String[] treasure = scanner.nextLine().split("\\s+");
+
+        var myBag = new LinkedHashMap<String, LinkedHashMap<String, Long>>();
+        long collectedTreasure = 0;
+
+        for (int index = 0; index < treasure.length; index += 2) {
+            String itemName = treasure[index];
+            long itemAmount = Long.parseLong(treasure[index + 1]);
+
+            boolean canTakeInBag = false;
+            String treasureItemType = getTreasureItemType(itemName);
+
+            switch (treasureItemType) {
+                case "Gem":
+                    if (!myBag.containsKey("Gem")) {
+                        myBag.put("Gem", new LinkedHashMap<>());
+                    }
+
+                    if (myBag.get("Gem") != null && myBag.get("Gold") != null) {
+                        if (checkIfCanCollectGems(myBag, itemAmount) && collectedTreasure + itemAmount <= bagSize) {
+                            canTakeInBag = true;
+                            if (myBag.get("Gem").containsKey(itemName)) {
+                                long currentCash = myBag.get("Gem").get(itemName);
+                                myBag.get("Gem").put(itemName, currentCash + itemAmount);
+                            } else {
+                                myBag.get("Gem").put(itemName, itemAmount);
+                            }
+                        }
+                    }
+                    break;
+
+                case "Gold":
+                    if (!myBag.containsKey("Gold")) {
+                        myBag.put("Gold", new LinkedHashMap<>());
+                    }
+                    if (collectedTreasure + itemAmount <= bagSize) {
+                        canTakeInBag = true;
+                        if (myBag.get("Gold").get(itemName) == null) {
+                            myBag.get("Gold").put(itemName, itemAmount);
+                        } else {
+                            long currentGold = myBag.get("Gold").get(itemName);
+                            myBag.get("Gold").put(itemName, currentGold + itemAmount);
+                        }
+
+                    }
+                    break;
+
+                case "Cash":
+                    if (!myBag.containsKey("Cash")) {
+                        myBag.put("Cash", new LinkedHashMap<>());
+                    }
+                    if (myBag.get("Gem") != null && myBag.get("Cash") != null) {
+                        if (checkIfCanCollectCash(myBag, itemAmount) && collectedTreasure + itemAmount <= bagSize) {
+                            canTakeInBag = true;
+                            if (myBag.get("Cash").containsKey(itemName)) {
+                                long currentCash = myBag.get("Cash").get(itemName);
+                                myBag.get("Cash").put(itemName, currentCash + itemAmount);
+                            } else {
+                                myBag.get("Cash").put(itemName, itemAmount);
+                            }
+                        }
+                    }
+            }
+
+            if (canTakeInBag) {
+                collectedTreasure += itemAmount;
+            }
+
+        }
+
+        myBag.entrySet().stream().sorted((f, s) -> {
+            long firstSum = f.getValue().values().stream().mapToLong(l -> l).sum();
+            long secondSum = s.getValue().values().stream().mapToLong(l -> l).sum();
+            return Long.compare(secondSum, firstSum);
+        }).forEach(item -> {
+            long sumValues = item.getValue().values().stream().mapToLong(l -> l).sum();
+
+            if (sumValues != 0) {
+                System.out.printf("<%s> $%s\n", item.getKey(), sumValues);
+                item.getValue().entrySet().stream().sorted((e1, e2) -> e2.getKey().compareTo(e1.getKey()))
+                        .forEach(i -> System.out.println("##" + i.getKey() + " - " + i.getValue()));
+            }
+
+        });
+
+    }
+
+    private static String getTreasureItemType(String itemName) {
+        String treasureItemType = "";
+        if (itemName.toLowerCase().endsWith("gem") && itemName.length() > 3) {
+            treasureItemType = "Gem";
+        } else if (itemName.length() == 3) {
+           treasureItemType = "Cash";
+       } else if (itemName.equalsIgnoreCase("gold")) {
+           treasureItemType = "Gold";
+       }
+        return treasureItemType;
+    }
+
+    private static boolean checkIfCanCollectCash(LinkedHashMap<String, LinkedHashMap<String, Long>> myBag
+            , long itemAmount) {
+        long gemAmount = myBag.get("Gem").values().stream().mapToLong(e -> e).sum();
+        long cashAmount = myBag.get("Cash").values().stream().mapToLong(e -> e).sum() + itemAmount;
+        return gemAmount >= cashAmount;
+    }
+
+    private static boolean checkIfCanCollectGems(LinkedHashMap<String, LinkedHashMap<String, Long>> myBag,
+                                                 long itemAmount) {
+        long goldAmount = myBag.get("Gold").values().stream().mapToLong(e -> e).sum();
+        long gemAmount = myBag.get("Gem").values().stream().mapToLong(e -> e).sum() + itemAmount;
+        return goldAmount >= gemAmount;
+    }
+
+}
