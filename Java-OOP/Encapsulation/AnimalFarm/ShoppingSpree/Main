@@ -1,0 +1,48 @@
+package encapsulation_exercise.ShoppingSpree_03;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        List<Person> persons = new ArrayList<>();
+        List<Product> products = new ArrayList<>();
+
+        String peopleData = scanner.nextLine();
+        String productData = scanner.nextLine();
+
+        for (String personInfo : peopleData.split(";")) {
+            String personName = personInfo.split("=")[0];
+            double personMoney = Double.parseDouble(personInfo.split("=")[1]);
+            Person person = new Person(personName,personMoney);
+            persons.add(person);
+        }
+
+        for (String productInfo : productData.split(";")) {
+            String productName = productInfo.split("=")[0];
+            double productCost = Double.parseDouble(productInfo.split("=")[1]);
+            Product product = new Product(productName,productCost);
+            products.add(product);
+        }
+
+        String command = scanner.nextLine();
+
+        while (!command.equals("END")) {
+            String personName = command.split(" ")[0];
+            String productName = command.split(" ")[1];
+
+            Person person = persons.stream().filter(p -> p.getName().equals(personName)).findFirst().get();
+            Product product = products.stream().filter(p -> p.getName().equals(productName)).findFirst().get();
+
+            person.buyProduct(product);
+
+            command = scanner.nextLine();
+        }
+
+    }
+
+}
+
