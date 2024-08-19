@@ -1,0 +1,76 @@
+package encapsulation_exercise.FootballTeamGenerator_05;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        List<Team> teams = new ArrayList<>();
+        String[] command = scanner.nextLine().split(";");
+
+        while (!command[0].equals("END")) {
+            String teamName = command[1];
+
+            switch (command[0]) {
+                case "Team" -> teams.add(new Team(teamName));
+                case "Remove" -> {
+                    String playerName = command[2];
+                    Team team = findTeamByName(teams, teamName);
+                    team.removePlayer(playerName);
+                }
+                case "Add" -> {
+                    Player player = createPlayer(command);
+                    if (checkIfPlayerIsValid(player) && checkIfTeamIsExisting(teams, teamName)) {
+                        Team team = findTeamByName(teams, teamName);
+                        team.addPlayer(player);
+                    }
+
+                }
+                case "Rating" -> {
+                   if (checkIfTeamIsExisting(teams, teamName)) {
+                       Team team = findTeamByName(teams, teamName);
+                       System.out.println(team.getName() + " - " + (int)team.getRating());
+                   }
+
+                }
+            }
+
+            command = scanner.nextLine().split(";");
+        }
+
+
+    }
+
+    private static Team findTeamByName(List<Team> teams, String teamName) {
+        return teams.stream().filter(t -> t.getName().equals(teamName)).findFirst().get();
+    }
+
+    private static boolean checkIfTeamIsExisting(List<Team> teams, String teamName) {
+        if (teams.stream().noneMatch(team -> team.getName().equals(teamName))) {
+            String message = String.format("Team %s does not exist.", teamName);
+            System.out.println(message);
+            return false;
+        }
+        return true;
+    }
+
+    public static Player createPlayer (String[] command) {
+        String playerName = command[2];
+        int playerEndurance = Integer.parseInt(command[3]);
+        int playerSprint = Integer.parseInt(command[4]);
+        int playerDribble = Integer.parseInt(command[5]);
+        int playerPassing = Integer.parseInt(command[6]);
+        int playerShooting = Integer.parseInt(command[7]);
+        return new Player(playerName,playerEndurance,playerSprint
+                ,playerDribble,playerPassing,playerShooting);
+    }
+
+    public static boolean checkIfPlayerIsValid(Player player) {
+        return player.getEndurance() != 0 && player.getDribble() != 0 && player.getPassing() != 0
+                && player.getShooting() != 0 && player.getSprint() != 0;
+    }
+
+}
