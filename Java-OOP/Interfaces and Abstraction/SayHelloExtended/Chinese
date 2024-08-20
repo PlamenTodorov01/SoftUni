@@ -1,0 +1,17 @@
+package interfaces_and_abstraction_lab.say_hello_extended_04;
+
+public class Chinese extends BasePerson {
+    private String name;
+
+    public Chinese(String name) {
+        super(name);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String sayHello() {
+        return "Djydjybydjy";
+    }
+}
