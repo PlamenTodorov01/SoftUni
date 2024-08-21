@@ -1,0 +1,45 @@
+package interfaces_and_abstraction_exercise.birthday_celebrations_03;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        List<Birthable> birthables = new ArrayList<>();
+
+        String command = scanner.nextLine();
+
+        while (!command.equals("End")) {
+            String[] individualData = command.split("\\s+");
+
+            switch (individualData[0]) {
+                case "Citizen" -> {
+                    String name = individualData[1];
+                    int age = Integer.parseInt(individualData[2]);
+                    String id = individualData[3];
+                    String birthDate = individualData[4];
+                    Birthable citizen = new Citizen(name, age, id, birthDate);
+                    birthables.add(citizen);
+
+                }
+                case "Pet" -> {
+                    String name = individualData[1];
+                    String birthDate = individualData[2];
+                    Birthable pet = new Pet(name, birthDate);
+                    birthables.add(pet);
+                }
+            }
+
+            command = scanner.nextLine();
+        }
+
+        String yearOfBirth = scanner.nextLine();
+
+        birthables.stream().filter(birthable -> birthable.getBirthDate().endsWith(yearOfBirth))
+                .forEach(birthable -> System.out.println(birthable.getBirthDate()));
+
+    }
+}
