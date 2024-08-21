@@ -1,0 +1,7 @@
+package interfaces_and_abstraction_exercise.birthday_celebrations_03;
+
+public interface Person {
+
+    String getName();
+    int getAge();
+}
