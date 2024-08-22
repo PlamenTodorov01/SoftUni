@@ -1,0 +1,78 @@
+package interfaces_and_abstraction_exercise.food_shortage_04;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        List<Citizen> citizens = new ArrayList<>();
+        List<Rebel> rebels = new ArrayList<>();
+
+        int n = Integer.parseInt(scanner.nextLine());
+
+        for (int row = 0; row < n; row++) {
+            String[] individualData = scanner.nextLine().split("\\s+");
+
+            if (individualData.length == 4) {
+                String name = individualData[0];
+                int age = Integer.parseInt(individualData[1]);
+                String id = individualData[2];
+                String birthDate = individualData[3];
+
+                Citizen citizen = new Citizen(name, age, id, birthDate);
+                citizens.add(citizen);
+            } else {
+                String name = individualData[0];
+                int age = Integer.parseInt(individualData[1]);
+                String group = individualData[2];
+
+                Rebel rebel = new Rebel(name, age, group);
+                rebels.add(rebel);
+            }
+        }
+
+        String name = scanner.nextLine();
+
+        while (!name.equals("End")) {
+//            String finalName = name;
+//            citizens.stream().filter(citizen -> citizen.getName().equals(finalName))
+//                    .forEach(Citizen::buyFood);
+//
+//            rebels.stream().filter(rebel -> rebel.getName().equals(finalName))
+//                    .forEach(Rebel::buyFood);
+
+            for (Citizen citizen : citizens) {
+                if (citizen.getName().equals(name)) {
+                    citizen.buyFood();
+                }
+            }
+
+            for (Rebel rebel : rebels) {
+                if (rebel.getName().equals(name)) {
+                    rebel.buyFood();
+                }
+            }
+            name = scanner.nextLine();
+        }
+
+//        int citizensFood = citizens.stream().mapToInt(Citizen::getFood).sum();
+//        int rebelsSum = rebels.stream().mapToInt(Rebel::getFood).sum();
+//
+//        System.out.println(citizensFood + rebelsSum);
+
+        int totalFood = 0;
+
+        for (Citizen citizen : citizens) {
+            totalFood += citizen.getFood();
+        }
+
+        for (Rebel rebel : rebels) {
+            totalFood += rebel.getFood();
+        }
+        System.out.println(totalFood);
+    }
+
+
+}
