@@ -1,0 +1,33 @@
+package inheritance_exercise.Animals_06;
+
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        String animalType = scanner.nextLine();
+
+        while (!animalType.equals("Beast!")) {
+            String[] animalInfo = scanner.nextLine().split("\\s+");
+            String name = animalInfo[0];
+            int age = Integer.parseInt(animalInfo[1]);
+            String gender = animalInfo[2];
+
+            Animal animal = new Animal(name, age, gender);
+
+            switch (animalType) {
+                case "Dog" -> animal = new Dog(name,age,gender);
+                case "Cat" -> animal = new Cat(name,age,gender);
+                case "Frog" -> animal = new Frog(name,age,gender);
+                case "Kitten" -> animal = new Kitten(name,age,gender);
+                case "Tomcat" -> animal = new Tomcat(name,age,gender);
+            }
+
+            System.out.println(animal);
+
+            animalType = scanner.nextLine();
+        }
+
+    }
+}
