@@ -1,0 +1,7 @@
+package polymorphism_lab.wild_farm_04;
+
+public class Meat extends Food {
+    protected Meat(Integer quantity) {
+        super(quantity);
+    }
+}
