@@ -1,0 +1,73 @@
+package polymorphism_exercise.vehicles_extension_02;
+
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        String[] carDetails = scanner.nextLine().split("\\s+");
+        String[] truckDetails = scanner.nextLine().split("\\s+");
+        String[] busDetails = scanner.nextLine().split("\\s+");
+
+        double carFuelQuantity = Double.parseDouble(carDetails[1]);
+        double carCostPerKm = Double.parseDouble(carDetails[2]);
+        double carTankCapacity = Double.parseDouble(carDetails[3]);
+
+        Car car = new Car(carFuelQuantity, carCostPerKm, carTankCapacity);
+
+        double truckFuelQuantity = Double.parseDouble(truckDetails[1]);
+        double truckCostPerKm = Double.parseDouble(truckDetails[2]);
+        double truckTankCapacity = Double.parseDouble(truckDetails[3]);
+
+        Truck truck = new Truck(truckFuelQuantity, truckCostPerKm, truckTankCapacity);
+
+        double busFuelQuantity = Double.parseDouble(busDetails[1]);
+        double buskCostPerKm = Double.parseDouble(busDetails[2]);
+        double busTankCapacity = Double.parseDouble(busDetails[3]);
+
+        Bus bus = new Bus(busFuelQuantity, buskCostPerKm, busTankCapacity);
+
+
+        int n = Integer.parseInt(scanner.nextLine());
+
+        for (int i = 0; i < n; i++) {
+            String[] tokens = scanner.nextLine().split("\\s+");
+            String command = tokens[0];
+            String typeOfVehicle = tokens[1];
+
+            switch (command) {
+                case "Drive" -> {
+                    double distance = Double.parseDouble(tokens[2]);
+                    if (typeOfVehicle.equals("Car")) {
+                        car.drive(distance);
+                    } else if (typeOfVehicle.equals("Truck")) {
+                        truck.drive(distance);
+                    } else {
+                        bus.drive(distance);
+                    }
+                }
+                case "DriveEmpty" -> {
+                    double distance = Double.parseDouble(tokens[2]);
+                    bus.driveEmpty(distance);
+                }
+                case "Refuel" -> {
+                    double fuel = Double.parseDouble(tokens[2]);
+                    if (typeOfVehicle.equals("Car")) {
+                        car.refuel(fuel);
+                    } else if (typeOfVehicle.equals("Truck")) {
+                        truck.refuel(fuel);
+                    } else {
+                        bus.refuel(fuel);
+                    }
+                }
+
+            }
+
+        }
+
+        System.out.println(car);
+        System.out.println(truck);
+        System.out.println(bus);
+    }
+}
