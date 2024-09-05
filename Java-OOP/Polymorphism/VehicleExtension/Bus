@@ -1,0 +1,23 @@
+package polymorphism_exercise.vehicles_extension_02;
+
+public class Bus extends Vehicle {
+
+    private double emptyBusCostPerKm;
+    private double nonEmptyBusCostPerKm;
+    public Bus(double fuelQuantity, double fuelCostPerKm, double tankCapacity) {
+        super(fuelQuantity, fuelCostPerKm + 1.4, tankCapacity);
+        this.nonEmptyBusCostPerKm = fuelCostPerKm + 1.4;
+        this.emptyBusCostPerKm = fuelCostPerKm;
+    }
+
+    @Override
+    public void drive(double distance) {
+        setFuelCostPerKm(nonEmptyBusCostPerKm);
+        super.drive(distance);
+    }
+
+    public void driveEmpty(double distance) {
+        setFuelCostPerKm(emptyBusCostPerKm);
+        super.drive(distance);
+    }
+}
