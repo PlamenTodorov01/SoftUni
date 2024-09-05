@@ -1,0 +1,5 @@
+package polymorphism_exercise.word_03;
+
+public interface TextTransform {
+    void invokeOn(StringBuilder text, int startIndex, int endIndex);
+}
