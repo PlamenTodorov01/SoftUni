@@ -1,0 +1,8 @@
+package polymorphism_exercise.vehicles_extension_02;
+
+public class Car extends Vehicle {
+    public Car(double fuelQuantity, double fuelCostPerKm, double tankCapacity) {
+        super(fuelQuantity, fuelCostPerKm + 0.9, tankCapacity);
+    }
+
+}
