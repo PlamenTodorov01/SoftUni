@@ -1,0 +1,15 @@
+package polymorphism_exercise.vehicles_01;
+
+public class Truck extends Vehicle{
+    public Truck(double fuelQuantity, double fuelConsumption) {
+        super(fuelQuantity, fuelConsumption + 1.6);
+    }
+
+
+
+    @Override
+    public void refuel(double litersToRefuel) {
+        double totalFuelToRefill = litersToRefuel * 0.95;
+        setFuelQuantity(getFuelQuantity() + totalFuelToRefill);
+    }
+}
