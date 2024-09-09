@@ -1,0 +1,36 @@
+package polymorphism_exercise.calculator_04;
+
+public class InputInterpreter {
+    private CalculationEngine engine;
+
+    public InputInterpreter(CalculationEngine engine) {
+        this.engine = engine;
+    }
+
+    public boolean interpret(String input) {
+        try {
+            engine.pushNumber(Integer.parseInt(input));
+        } catch (Exception ex) {
+            if (input.equals("ms")) {
+                engine.addResultToMemory();
+            } else if (input.equals("mr")) {
+                Integer number = engine.getMemory().pop();
+                engine.pushNumber(number);
+            } else {
+                Operation currentOperation = this.getOperation(input);
+                engine.pushOperation(currentOperation);
+            }
+        }
+        return true;
+    }
+
+    public Operation getOperation(String operation) {
+        if (operation.equals("*")) {
+            return new MultiplicationOperation();
+        } else if (operation.equals("/")) {
+            return new DivisionOperation();
+        }
+
+        return null;
+    }
+}
