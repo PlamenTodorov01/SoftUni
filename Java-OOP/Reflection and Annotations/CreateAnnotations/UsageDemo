@@ -1,0 +1,8 @@
+package reflection_and_annotations_lab.create_annotations;
+
+@Subject(categories = {
+        "this is a demo use annotation",
+        "for this class"
+})
+public class UsageDemo {
+}
