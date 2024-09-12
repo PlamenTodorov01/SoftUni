@@ -1,0 +1,5 @@
+package solid_lab.Single_Responsibility_01.drawing_shape_01.interfaces;
+
+public interface Renderer {
+    void render(DrawingRepository drawingRepository, Shape shape);
+}
