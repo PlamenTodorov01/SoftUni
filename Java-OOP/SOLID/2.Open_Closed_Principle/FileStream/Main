@@ -1,0 +1,8 @@
+package solid_lab.Open_Closed_Principle_02.p01_FileStream;
+
+public class Main {
+    public static void main(String[] args) {
+        System.out.println("Hello World");
+    }
+}
+
