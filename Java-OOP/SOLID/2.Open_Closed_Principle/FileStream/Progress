@@ -1,0 +1,15 @@
+package solid_lab.Open_Closed_Principle_02.p01_FileStream;
+
+public class Progress {
+    private final Sendable sendable;
+    private int send;
+    public Progress(Sendable sendable)
+    {
+        this.sendable = sendable;
+    }
+
+    public int getCurrentPercent()
+    {
+        return send * 100 / sendable.getLength();
+    }
+}
