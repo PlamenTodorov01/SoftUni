@@ -1,0 +1,7 @@
+package solid_lab.Single_Responsibility_01.drawing_shape_01;
+
+public class Main {
+    public static void main(String[] args) {
+        System.out.println("Hello World");
+    }
+}
