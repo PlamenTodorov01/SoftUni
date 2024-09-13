@@ -1,0 +1,13 @@
+package solid_lab.Open_Closed_Principle_02.p02_DrawingShape;
+
+import solid_lab.Open_Closed_Principle_02.p02_DrawingShape.interfaces.DrawingManager;
+import solid_lab.Open_Closed_Principle_02.p02_DrawingShape.interfaces.Shape;
+
+public class DrawingManagerImpl implements DrawingManager {
+
+    @Override
+    public void draw(Shape shape) {
+
+    }
+
+}
