@@ -1,0 +1,12 @@
+package solid_lab.Interface_Segregation_04;
+
+public class AccountController {
+    private final Account manager;
+
+    public AccountController(Account manager) {
+        this.manager = manager;
+    }
+    public void changePassword(String oldPass,String newPass){
+        this.manager.changePassword(oldPass,newPass);
+    }
+}
