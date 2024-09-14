@@ -1,0 +1,5 @@
+package solid_lab.Liskov_Substitution_03;
+
+public abstract class Shape {
+    public abstract double getArea();
+}
