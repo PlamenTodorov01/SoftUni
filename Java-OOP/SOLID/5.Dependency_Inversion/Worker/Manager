@@ -1,0 +1,9 @@
+package solid_lab.Dependency_Inversion_05.Worker_02;
+
+public class Manager {
+
+    public Manager() {
+        Worker worker = new Worker();
+        worker.work();
+    }
+}
