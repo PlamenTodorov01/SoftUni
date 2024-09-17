@@ -1,0 +1,8 @@
+package solid_exercise.drink;
+
+import solid_exercise.products.Product;
+
+public interface Drink extends Product {
+    double getLiters();
+    double getKilograms();
+}
