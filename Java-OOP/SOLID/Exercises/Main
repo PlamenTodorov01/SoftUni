@@ -1,0 +1,18 @@
+package solid_exercise;
+
+import solid_exercise.calculator.CalorieCalculator;
+import solid_exercise.calculator.QuantityCalculator;
+import solid_exercise.printer.Printer;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        CalorieCalculator calorieCalculator = new CalorieCalculator();
+        QuantityCalculator quantityCalculator = new QuantityCalculator();
+
+        Printer printer = new Printer(calorieCalculator);
+        Printer printer1 = new Printer(quantityCalculator);
+
+    }
+}
