@@ -1,0 +1,7 @@
+package solid_exercise.food;
+
+import solid_exercise.products.Product;
+
+public interface Food extends Product {
+    double getKilograms();
+}
