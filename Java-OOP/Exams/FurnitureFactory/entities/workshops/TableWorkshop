@@ -1,0 +1,21 @@
+package furnitureFactory.entities.workshops;
+
+public class TableWorkshop extends BaseWorkshop {
+    private final int TABLE_WOOD_QUANTITY_REDUCE_FACTOR = 50;
+    private int producedFurniture = 0;
+    public TableWorkshop(int woodQuantity) {
+        super(woodQuantity,0);
+        super.setWoodQuantityReduceFactor(TABLE_WOOD_QUANTITY_REDUCE_FACTOR);
+    }
+
+    @Override
+    public void produce() {
+        int newWoodQuantity = getWoodQuantity() - TABLE_WOOD_QUANTITY_REDUCE_FACTOR;
+        if (newWoodQuantity < 0) {
+            newWoodQuantity = 0;
+        }
+        producedFurniture++;
+        setWoodQuantityReduceFactor(newWoodQuantity);
+    }
+
+}
